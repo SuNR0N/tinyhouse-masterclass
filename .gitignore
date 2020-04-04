@@ -4,8 +4,16 @@ node_modules
 # Build
 build
 
-# OS files
+# Misc
 .DS_Store
 
 # Other
 Quiz.md
+
+# Environment
+.env
+
+# Logs
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*

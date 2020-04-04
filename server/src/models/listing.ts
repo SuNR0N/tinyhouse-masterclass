@@ -1,5 +1,7 @@
+import { ObjectId } from 'mongodb';
+
 export interface Listing {
-    id: string;
+    _id: ObjectId;
     title: string;
     image: string;
     address: string;

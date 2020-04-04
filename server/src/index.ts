@@ -1,15 +1,14 @@
-import express from 'express';
-import { ApolloServer } from 'apollo-server-express';
+require('dotenv').config();
 
-import { resolvers, typeDefs } from './graphql';
+import { init } from './app';
 import { Configuration } from './config';
 
-const { API_PREFIX, ENVIRONMENT, PORT } = Configuration;
+const { ENVIRONMENT, PORT } = Configuration;
 
-const app = express();
-const server = new ApolloServer({ resolvers, typeDefs });
-server.applyMiddleware({ app, path: API_PREFIX });
+(async () => {
+    const app = await init();
 
-app.listen(PORT, () => {
-    console.info(`Server is running at http://localhost:${PORT} in mode "${ENVIRONMENT}"`);
-});
+    app.listen(PORT, () => {
+        console.info(`[server]: Running at http://localhost:${PORT} in mode "${ENVIRONMENT}"`);
+    });
+})();
