@@ -2,7 +2,8 @@ import React, { FC } from 'react';
 import { useMutation, useQuery } from 'react-apollo';
 import { gql } from 'apollo-boost';
 
-import { DeleteListingData, DeleteListingVariables, ListingsData } from './types';
+import { Listings as ListingsData } from './__generated__/Listings';
+import { DeleteListing as DeleteListingData, DeleteListingVariables } from './__generated__/DeleteListing';
 
 interface Props {
     title: string;
