@@ -3,6 +3,7 @@ import { render } from 'react-dom';
 import ApolloClient from 'apollo-boost';
 import { ApolloProvider } from 'react-apollo';
 
+import './styles/styles.scss';
 import * as serviceWorker from './serviceWorker';
 import { Listings } from './components';
 
