@@ -37,8 +37,28 @@ Instead, it will copy all the configuration files and the transitive dependencie
 
 You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
 
+### `npm run codegen:schema`
+
+Generates the _GraphQL_ schema of the server project as [schema.json](schema.json).
+
+### `npm run codegen:generate`
+
+Generates the _TypeScript_ interfaces using the available JSON schema definition.
+
 ## Learn More
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+-   React - https://reactjs.org/
+-   Create React App - https://facebook.github.io/create-react-app/docs/getting-started
+-   GraphQL - https://graphql.org
+-   Ant Design - https://ant.design
+-   TypeScript - https://www.typescriptlang.org
+-   Apollo CLI - https://www.apollographql.com/docs/devtools/cli/
+-   React Apollo - https://www.apollographql.com/docs/react/api/react-apollo/
+-   Jest - https://jestjs.io
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+## TODO
+
+-   [ ] -   Replace icons
+-   [ ] -   Enhance styles (units, variables, etc.)
+-   [ ] -   Add unit tests
+-   [ ] -   Add linting and prettier
