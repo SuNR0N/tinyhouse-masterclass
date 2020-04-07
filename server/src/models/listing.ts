@@ -10,4 +10,5 @@ export interface Listing {
     numOfBeds: number;
     numOfBaths: number;
     rating: number;
+    bookings: ObjectId[];
 }

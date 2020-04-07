@@ -1,7 +1,8 @@
 import { Collection } from 'mongodb';
 
-import { Listing } from './listing';
+import { Booking, Listing } from './';
 
 export interface Database {
+    bookings: Collection<Booking>;
     listings: Collection<Listing>;
 }

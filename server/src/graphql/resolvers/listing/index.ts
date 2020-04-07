@@ -19,10 +19,14 @@ export const listingResolvers: IResolvers = {
                 throw new Error(`Failed to delete listing with id: ${id}`);
             }
 
+            const deletionPromises = value.bookings.map((bookingId) => db.bookings.deleteOne({ _id: new ObjectId(bookingId) }));
+            await Promise.all(deletionPromises);
+
             return value;
         },
     },
     Listing: {
         id: (listing: Listing) => listing._id.toString(),
+        bookings: (listing: Listing) => listing.bookings.map((bookingId) => bookingId.toString()),
     },
 };

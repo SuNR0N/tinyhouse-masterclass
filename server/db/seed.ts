@@ -1,5 +1,5 @@
 require('dotenv').config();
-import { ObjectId } from 'mongodb';
+import { ObjectId, Collection } from 'mongodb';
 
 import listings from './json/listings.json';
 import { connectDatabase } from '../src/database';
@@ -13,16 +13,22 @@ const log = (...args: string[]) => {
     try {
         log('Connecting to the database ...');
         const db = await connectDatabase();
-        log('Removing documents from listings collection ...');
-        await db.listings.deleteMany({});
+        const deletionPromises = Object.entries(db).map(async ([key, collection]: [string, Collection]) => {
+            log(`Removing documents from "${key}" collection ...`);
+            const result = await collection.deleteMany({});
+            log(`Collection "${key}" has been cleared ...`);
+            return result;
+        });
+        await Promise.all(deletionPromises);
         log('Initialising database with mocked data ...');
-        const promises = listings.map((listing: Omit<Listing, '_id'>) =>
+        const insertionPromises = listings.map((listing: Omit<Listing, '_id' | 'bookings'>) =>
             db.listings.insertOne({
                 ...listing,
                 _id: new ObjectId(),
+                bookings: [],
             })
         );
-        await Promise.all(promises);
+        await Promise.all(insertionPromises);
         log('Done');
         process.exit(0);
     } catch {

@@ -1,11 +1,11 @@
 ## Prerequisites
 
-1. Create a collection under a namespace within [MongoDB Atlas](https://cloud.mongodb.com)
+1. Create _bookings_ and _listings_ collections under a namespace within [MongoDB Atlas](https://cloud.mongodb.com)
 2. Create a `.env` file as follows:
 
 ```sh
 DB_CLUSTER=XXXX
-DB_COLLECTION_NAME=test_listings
+DB_COLLECTIONS=bookings=test_bookings,listings=test_listings
 DB_NAME=main
 DB_PASSWORD=XXXX
 DB_USER=XXXX
