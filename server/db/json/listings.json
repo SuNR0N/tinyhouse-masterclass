@@ -7,7 +7,8 @@
         "numOfGuests": 2,
         "numOfBeds": 1,
         "numOfBaths": 2,
-        "rating": 5
+        "rating": 5,
+        "favorite": false
     },
     {
         "title": "Luxurious home with private pool",
@@ -17,7 +18,8 @@
         "numOfGuests": 2,
         "numOfBeds": 1,
         "numOfBaths": 1,
-        "rating": 4
+        "rating": 4,
+        "favorite": false
     },
     {
         "title": "Single bedroom located in the heart of downtown San Fransisco",
@@ -27,6 +29,7 @@
         "numOfGuests": 3,
         "numOfBeds": 2,
         "numOfBaths": 2,
-        "rating": 3
+        "rating": 3,
+        "favorite": false
     }
 ]

@@ -2,13 +2,14 @@ import { ObjectId } from 'mongodb';
 
 export interface Listing {
     _id: ObjectId;
-    title: string;
-    image: string;
     address: string;
-    price: number;
-    numOfGuests: number;
-    numOfBeds: number;
+    favorite: boolean;
+    image: string;
     numOfBaths: number;
+    numOfBeds: number;
+    numOfBookings: number;
+    numOfGuests: number;
+    price: number;
     rating: number;
-    bookings: ObjectId[];
+    title: string;
 }

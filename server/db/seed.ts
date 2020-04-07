@@ -21,11 +21,11 @@ const log = (...args: string[]) => {
         });
         await Promise.all(deletionPromises);
         log('Initialising database with mocked data ...');
-        const insertionPromises = listings.map((listing: Omit<Listing, '_id' | 'bookings'>) =>
+        const insertionPromises = listings.map((listing: Omit<Listing, '_id' | 'numOfBookings'>) =>
             db.listings.insertOne({
                 ...listing,
                 _id: new ObjectId(),
-                bookings: [],
+                numOfBookings: 0,
             })
         );
         await Promise.all(insertionPromises);

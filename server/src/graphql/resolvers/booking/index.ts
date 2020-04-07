@@ -30,19 +30,6 @@ export const bookingResolvers: IResolvers = {
                 throw new Error('Failed to create new booking');
             }
 
-            const { modifiedCount } = await db.listings.updateOne(
-                { _id: new ObjectId(id) },
-                {
-                    $set: {
-                        bookings: [...listing.bookings, insertedId],
-                    },
-                }
-            );
-
-            if (modifiedCount === 0) {
-                throw new Error(`Failed to update listing (id: ${id}) with booking (id: ${newBooking._id.toHexString()})`);
-            }
-
             return newBooking;
         },
         deleteListing: async (_root: undefined, { id }: { id: string }, { db }: { db: Database }) => {

@@ -19,14 +19,43 @@ export const listingResolvers: IResolvers = {
                 throw new Error(`Failed to delete listing with id: ${id}`);
             }
 
-            const deletionPromises = value.bookings.map((bookingId) => db.bookings.deleteOne({ _id: new ObjectId(bookingId) }));
-            await Promise.all(deletionPromises);
+            await db.bookings.deleteMany({ address: value.address, image: value.image, title: value.title });
 
             return value;
+        },
+        favoriteListing: async (_root: undefined, { id }: { id: string }, { db }: { db: Database }) => {
+            const listing = await db.listings.findOne({ _id: new ObjectId(id) });
+
+            if (!listing) {
+                throw new Error(`Failed to get listing with id: ${id}`);
+            }
+
+            const updatedListing: Listing = {
+                ...listing,
+                favorite: !listing.favorite,
+            };
+
+            const { modifiedCount } = await db.listings.updateOne(
+                { _id: new ObjectId(id) },
+                {
+                    $set: {
+                        favorite: updatedListing.favorite,
+                    },
+                }
+            );
+
+            if (modifiedCount === 0) {
+                throw new Error(`Failed to update favorite property of listing with id: ${id}`);
+            }
+
+            return updatedListing;
         },
     },
     Listing: {
         id: (listing: Listing) => listing._id.toString(),
-        bookings: (listing: Listing) => listing.bookings.map((bookingId) => bookingId.toString()),
+        numOfBookings: async (listing: Listing, _args: {}, { db }: { db: Database }) => {
+            const { address, image, title } = listing;
+            return await db.bookings.find({ address, image, title }).count();
+        },
     },
 };
