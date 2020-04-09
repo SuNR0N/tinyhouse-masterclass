@@ -1,16 +1,17 @@
 import React, { FC } from 'react';
 import { useMutation, useQuery } from 'react-apollo';
 import { gql } from 'apollo-boost';
-import { Alert, Avatar, Button, List, Spin } from 'antd/es';
+import { Button } from 'antd/es';
 
-import './listings.scss';
-import { Listings as ListingsData } from './__generated__/Listings';
+import { Listings as ListingsData, Listings_listings as Listing } from './__generated__/Listings';
 import { DeleteListing as DeleteListingData, DeleteListingVariables } from './__generated__/DeleteListing';
-import { ListingsSkeleton } from './helpers/listings-skeleton';
+import { CreateBooking as CreateBookingData, CreateBookingVariables } from './__generated__/CreateBooking';
+import { FavoriteListing as FavoriteListingData, FavoriteListingVariables } from './__generated__/FavoriteListing';
+import { ListFactory } from '../list';
+import { useMessageContext } from '../../core/contexts/message-context';
+import './listings.scss';
 
-interface Props {
-    title: string;
-}
+const List = ListFactory<Listing>();
 
 const LISTINGS = gql`
     query Listings {
@@ -19,10 +20,8 @@ const LISTINGS = gql`
             title
             image
             address
-            price
-            numOfGuests
-            numOfBeds
-            rating
+            numOfBookings
+            favorite
         }
     }
 `;
@@ -35,54 +34,96 @@ const DELETE_LISTING = gql`
     }
 `;
 
-export const Listings: FC<Props> = ({ title }) => {
+const CREATE_BOOKING = gql`
+    mutation CreateBooking($id: ID!, $timestamp: String!) {
+        createBooking(id: $id, timestamp: $timestamp) {
+            id
+        }
+    }
+`;
+
+const FAVORITE_LISTING = gql`
+    mutation FavoriteListing($id: ID!) {
+        favoriteListing(id: $id) {
+            id
+        }
+    }
+`;
+
+const getErrorMessage = (reason = '') => {
+    return `Uh oh! Something went wrong${reason} - please try again later :(`;
+};
+
+export const Listings: FC = () => {
+    const { dispatch } = useMessageContext();
     const { data, loading, error, refetch } = useQuery<ListingsData>(LISTINGS);
     const [deleteListing, { error: deleteListingError, loading: deleteListingLoading }] = useMutation<
         DeleteListingData,
         DeleteListingVariables
     >(DELETE_LISTING);
+    const [createBooking, { error: createBookingError, loading: createBookingLoading }] = useMutation<
+        CreateBookingData,
+        CreateBookingVariables
+    >(CREATE_BOOKING);
+    const [favoriteListing, { error: favoriteListingError, loading: favoriteListingLoading }] = useMutation<
+        FavoriteListingData,
+        FavoriteListingVariables
+    >(FAVORITE_LISTING);
+    const errorMessage = [error, deleteListingError, createBookingError, favoriteListingError].reduce((acc, err, i) => {
+        const mappingArr = ['', ' with deleting', ' with creating a booking', 'with favoriting a listing'];
+        if (err && acc === undefined) {
+            acc = getErrorMessage(mappingArr[i]);
+        }
+        return acc;
+    }, undefined as undefined | string);
+    const spinning = deleteListingLoading || createBookingLoading || favoriteListingLoading;
 
     const handleDeleteListing = async (id: string) => {
         await deleteListing({ variables: { id } });
         refetch();
+        dispatch({ type: 'DELETE_LISTING' });
     };
 
-    const listingsList = data?.listings ? (
-        <List
-            itemLayout="horizontal"
-            dataSource={data?.listings}
-            renderItem={({ title, address, image, id }) => (
-                <List.Item
-                    actions={[
-                        <Button type="primary" onClick={() => handleDeleteListing(id)}>
-                            Delete
-                        </Button>,
-                    ]}
-                >
-                    <List.Item.Meta title={title} description={address} avatar={<Avatar src={image} shape="square" size={48} />} />
-                </List.Item>
-            )}
-        />
-    ) : null;
+    const handleCreateBooking = async (id: string) => {
+        await createBooking({ variables: { id, timestamp: new Date().toISOString() } });
+        refetch();
+        dispatch({ type: 'CREATE_BOOKING' });
+    };
 
-    if (loading || error) {
-        return (
-            <div className="listings">
-                <ListingsSkeleton {...{ title, error: !!error }} />
-            </div>
-        );
-    }
-
-    const deleteListingErrorAlert = deleteListingError ? (
-        <Alert type="error" message="Uh oh! Something went wrong with deleting - please try again later :(" className="listings__alert" />
-    ) : null;
+    const handleFavoriteListing = async (id: string) => {
+        await favoriteListing({ variables: { id } });
+        refetch();
+    };
 
     return (
-        <div className="listings">
-            <Spin spinning={deleteListingLoading} />
-            {deleteListingErrorAlert}
-            <h2>{title}</h2>
-            {listingsList}
-        </div>
+        <List
+            className="listings"
+            title="TinyHouse Listings"
+            dataSource={data?.listings}
+            spinning={spinning}
+            isLoading={loading}
+            errorMessage={errorMessage}
+            actionsRenderer={({ id, favorite }) => [
+                <Button type="default" onClick={() => handleFavoriteListing(id)}>
+                    {favorite ? 'Unfavorite' : 'Favorite'}
+                </Button>,
+                <Button type="primary" onClick={() => handleCreateBooking(id)}>
+                    Book
+                </Button>,
+                <Button type="danger" onClick={() => handleDeleteListing(id)}>
+                    Delete
+                </Button>,
+            ]}
+            contentRenderer={({ numOfBookings, favorite }) => (
+                <div className="listings__item-content">
+                    {favorite && (
+                        <span role="img" aria-label="favorite">
+                            ❤️
+                        </span>
+                    )}
+                    {!!numOfBookings && <span>{numOfBookings}× booked</span>}
+                </div>
+            )}
+        />
     );
 };

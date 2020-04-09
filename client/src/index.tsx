@@ -5,7 +5,8 @@ import { ApolloProvider } from 'react-apollo';
 
 import './styles/styles.scss';
 import * as serviceWorker from './serviceWorker';
-import { Listings } from './components';
+import { Bookings, Listings } from './components';
+import { MessageContextProvider } from './core/contexts/message-context';
 
 const client = new ApolloClient({
     uri: '/api',
@@ -13,7 +14,10 @@ const client = new ApolloClient({
 
 render(
     <ApolloProvider client={client}>
-        <Listings title="TinyHouse Listings" />
+        <MessageContextProvider>
+            <Listings />
+            <Bookings />
+        </MessageContextProvider>
     </ApolloProvider>,
     document.getElementById('root')
 );

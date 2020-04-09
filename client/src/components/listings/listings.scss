@@ -1,8 +1,17 @@
 .listings {
-    margin: 20px;
-    max-width: 750px;
+    &__item-content {
+        display: flex;
+        margin-right: 1rem;
 
-    &__alert {
-        margin-bottom: 20px;
+        > :not(:last-child) {
+            margin-right: 0.5rem;
+        }
+    }
+
+    .ant-list-item-action {
+        min-width: 270px;
+        margin-left: 0;
+        display: flex;
+        justify-content: flex-end;
     }
 }

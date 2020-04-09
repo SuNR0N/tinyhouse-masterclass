@@ -1,0 +1,22 @@
+.list {
+    margin: 20px;
+    max-width: 750px;
+
+    &__alert {
+        margin-bottom: 20px;
+    }
+
+    &--skeleton {
+        .ant-skeleton-content {
+            .ant-skeleton-title {
+                + .ant-skeleton-paragraph {
+                    margin-top: 12px;
+                }
+            }
+        }
+
+        .ant-divider-horizontal {
+            margin: 12px 0;
+        }
+    }
+}

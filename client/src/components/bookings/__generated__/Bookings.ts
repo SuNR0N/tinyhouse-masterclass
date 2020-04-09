@@ -4,19 +4,17 @@
 // This file was automatically generated and should not be edited.
 
 // ====================================================
-// GraphQL query operation: Listings
+// GraphQL query operation: Bookings
 // ====================================================
 
-export interface Listings_listings {
-  __typename: "Listing";
-  id: string;
-  title: string;
-  image: string;
+export interface Bookings_bookings {
+  __typename: "Booking";
   address: string;
-  numOfBookings: number;
-  favorite: boolean;
+  image: string;
+  timestamp: string;
+  title: string;
 }
 
-export interface Listings {
-  listings: Listings_listings[];
+export interface Bookings {
+  bookings: Bookings_bookings[];
 }

@@ -4,18 +4,19 @@
 // This file was automatically generated and should not be edited.
 
 // ====================================================
-// GraphQL mutation operation: DeleteListing
+// GraphQL mutation operation: CreateBooking
 // ====================================================
 
-export interface DeleteListing_deleteListing {
-  __typename: "Listing";
+export interface CreateBooking_createBooking {
+  __typename: "Booking";
   id: string;
 }
 
-export interface DeleteListing {
-  deleteListing: DeleteListing_deleteListing;
+export interface CreateBooking {
+  createBooking: CreateBooking_createBooking;
 }
 
-export interface DeleteListingVariables {
+export interface CreateBookingVariables {
   id: string;
+  timestamp: string;
 }

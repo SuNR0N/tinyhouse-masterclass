@@ -28,6 +28,7 @@
         "build": "react-scripts build",
         "test": "react-scripts test",
         "eject": "react-scripts eject",
+        "codegen": "npm run codegen:schema && npm run codegen:generate",
         "codegen:schema": "npx apollo client:download-schema --endpoint=http://localhost:9000/api",
         "codegen:generate": "npx apollo client:codegen --localSchemaFile=schema.json --includes=src/**/*.tsx --target=typescript"
     },

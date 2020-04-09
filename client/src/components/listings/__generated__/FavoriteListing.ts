@@ -4,19 +4,18 @@
 // This file was automatically generated and should not be edited.
 
 // ====================================================
-// GraphQL query operation: Listings
+// GraphQL mutation operation: FavoriteListing
 // ====================================================
 
-export interface Listings_listings {
+export interface FavoriteListing_favoriteListing {
   __typename: "Listing";
   id: string;
-  title: string;
-  image: string;
-  address: string;
-  numOfBookings: number;
-  favorite: boolean;
 }
 
-export interface Listings {
-  listings: Listings_listings[];
+export interface FavoriteListing {
+  favoriteListing: FavoriteListing_favoriteListing;
+}
+
+export interface FavoriteListingVariables {
+  id: string;
 }

@@ -32,17 +32,6 @@ export const bookingResolvers: IResolvers = {
 
             return newBooking;
         },
-        deleteListing: async (_root: undefined, { id }: { id: string }, { db }: { db: Database }) => {
-            const { value } = await db.listings.findOneAndDelete({
-                _id: new ObjectId(id),
-            });
-
-            if (!value) {
-                throw new Error(`Failed to delete listing with id: ${id}`);
-            }
-
-            return value;
-        },
     },
     Booking: {
         id: (booking: Booking) => booking._id.toHexString(),

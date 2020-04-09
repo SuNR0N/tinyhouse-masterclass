@@ -45,6 +45,10 @@ Generates the _GraphQL_ schema of the server project as [schema.json](schema.jso
 
 Generates the _TypeScript_ interfaces using the available JSON schema definition.
 
+### `npm run codegen`
+
+Generates the _GraphQL_ schema of the server project and based on that the _TypeScript_ interfaces that the client code should use based on its currently implemented queries.
+
 ## Learn More
 
 -   React - https://reactjs.org/
