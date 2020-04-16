@@ -1,0 +1,11 @@
+@mixin withTypo {
+    &.#{$prefix}typography {
+        @content;
+    }
+}
+
+@mixin withChildTypo {
+    .#{$prefix}typography {
+        @content;
+    }
+}

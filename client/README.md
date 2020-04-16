@@ -66,3 +66,4 @@ Generates the _GraphQL_ schema of the server project and based on that the _Type
 -   [ ] -   Enhance styles (units, variables, etc.)
 -   [ ] -   Add unit tests
 -   [ ] -   Add linting and prettier
+-   [ ] -   Modularize styles

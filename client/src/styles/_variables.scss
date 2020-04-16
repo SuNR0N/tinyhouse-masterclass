@@ -1,0 +1,29 @@
+$colors: (
+    white: (
+        base: #fff,
+    ),
+    gray: (
+        base: #bfbfbf,
+        light: #f0f1f2,
+    ),
+    purple: (
+        base: #1d226c,
+    ),
+    blue: (
+        base: #4285f4,
+        light: #1890ff,
+        dark: #3367d6,
+    ),
+);
+
+$font-family: Sacramento;
+$font-size-base: 16px;
+$font-size-medium: $font-size-base;
+$font-size-small: 15px;
+$font-size-xsmall: 13px;
+$font-size-xxsmall: 11px;
+$font-size-xxlarge: 22px;
+$font-weight-normal: 400;
+$font-weight-bold: 700;
+
+$prefix: ant-;

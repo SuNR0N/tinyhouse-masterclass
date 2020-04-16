@@ -1,0 +1,13 @@
+.#{$prefix}-calendar {
+    &-date__check-in {
+        border: 1px solid color(blue, light);
+        border-radius: 50%;
+    }
+
+    &-footer-text {
+        font-size: $font-size-xxsmall;
+        line-height: 20px;
+        padding: 10px;
+        display: block;
+    }
+}
