@@ -1,34 +1,42 @@
 require('dotenv').config();
-import { ObjectId, Collection } from 'mongodb';
+import { ObjectId } from 'mongodb';
 
 import listings from './json/listings.json';
+import users from './json/users.json';
+
 import { connectDatabase } from '../src/database';
-import { Listing } from '../src/models/listing';
+import { Database, ListingType } from '../src/models';
 
 const log = (...args: string[]) => {
     console.log('[seed]:', ...args);
+};
+
+const seedUsers = async (db: Database) => {
+    const userEntities = users.map((user) => ({
+        ...user,
+        listings: user.listings.map((listingId) => new ObjectId(listingId)),
+    }));
+    await db.users.insertMany(userEntities);
+    log(`Collection "users" have been seeded ...`);
+};
+
+const seedListings = async (db: Database) => {
+    const listingEntities = listings.map((listing) => ({
+        ...listing,
+        _id: new ObjectId(listing._id),
+        type: listing.type as ListingType,
+    }));
+    await db.listings.insertMany(listingEntities);
+    log(`Collection "listings" have been seeded ...`);
 };
 
 (async () => {
     try {
         log('Connecting to the database ...');
         const db = await connectDatabase();
-        const deletionPromises = Object.entries(db).map(async ([key, collection]: [string, Collection]) => {
-            log(`Removing documents from "${key}" collection ...`);
-            const result = await collection.deleteMany({});
-            log(`Collection "${key}" has been cleared ...`);
-            return result;
-        });
-        await Promise.all(deletionPromises);
         log('Initialising database with mocked data ...');
-        const insertionPromises = listings.map((listing: Omit<Listing, '_id' | 'numOfBookings'>) =>
-            db.listings.insertOne({
-                ...listing,
-                _id: new ObjectId(),
-                numOfBookings: 0,
-            })
-        );
-        await Promise.all(insertionPromises);
+        await seedUsers(db);
+        await seedListings(db);
         log('Done');
         process.exit(0);
     } catch {

@@ -7,7 +7,8 @@
         "build": "tsc -p ./",
         "lint": "eslint --ext ts,tsx src",
         "lint:fix": "eslint --ext ts,tsx src --fix",
-        "seed": "ts-node db/seed.ts",
+        "db:clear": "ts-node db/clear.ts",
+        "db:seed": "ts-node db/seed.ts",
         "start": "nodemon src/index.ts",
         "test": "echo \"Error: no test specified\" && exit 1"
     },

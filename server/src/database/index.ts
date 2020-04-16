@@ -16,5 +16,6 @@ export const connectDatabase = async (): Promise<Database> => {
     return {
         bookings: db.collection(DB_COLLECTIONS.bookings),
         listings: db.collection(DB_COLLECTIONS.listings),
+        users: db.collection(DB_COLLECTIONS.users),
     };
 };

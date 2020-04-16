@@ -1,4 +1,4 @@
-type CollectionKey = 'bookings' | 'listings';
+type CollectionKey = 'bookings' | 'listings' | 'users';
 
 type CollectionMap = {
     [key in CollectionKey]: string;
@@ -29,8 +29,9 @@ export const Configuration: Configuration = {
                 return acc;
             },
             {
-                bookings: 'test_bookings',
-                listings: 'test_listings',
+                bookings: 'bookings',
+                listings: 'listings',
+                users: 'users',
             }
         ),
     DB_NAME: process.env.DB_NAME || 'main',

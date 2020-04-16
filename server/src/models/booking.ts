@@ -2,8 +2,8 @@ import { ObjectId } from 'mongodb';
 
 export interface Booking {
     _id: ObjectId;
-    title: string;
-    image: string;
-    address: string;
-    timestamp: string;
+    listing: ObjectId;
+    tenant: string;
+    checkIn: string;
+    checkOut: string;
 }

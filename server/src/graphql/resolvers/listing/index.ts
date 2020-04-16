@@ -23,39 +23,40 @@ export const listingResolvers: IResolvers = {
 
             return value;
         },
-        favoriteListing: async (_root: undefined, { id }: { id: string }, { db }: { db: Database }) => {
-            const listing = await db.listings.findOne({ _id: new ObjectId(id) });
+        // TODO: Make it work again
+        // favoriteListing: async (_root: undefined, { id }: { id: string }, { db }: { db: Database }) => {
+        //     const listing = await db.listings.findOne({ _id: new ObjectId(id) });
 
-            if (!listing) {
-                throw new Error(`Failed to get listing with id: ${id}`);
-            }
+        //     if (!listing) {
+        //         throw new Error(`Failed to get listing with id: ${id}`);
+        //     }
 
-            const updatedListing: Listing = {
-                ...listing,
-                favorite: !listing.favorite,
-            };
+        //     const updatedListing: Listing = {
+        //         ...listing,
+        //         favorite: !listing.favorite,
+        //     };
 
-            const { modifiedCount } = await db.listings.updateOne(
-                { _id: new ObjectId(id) },
-                {
-                    $set: {
-                        favorite: updatedListing.favorite,
-                    },
-                }
-            );
+        //     const { modifiedCount } = await db.listings.updateOne(
+        //         { _id: new ObjectId(id) },
+        //         {
+        //             $set: {
+        //                 favorite: updatedListing.favorite,
+        //             },
+        //         }
+        //     );
 
-            if (modifiedCount === 0) {
-                throw new Error(`Failed to update favorite property of listing with id: ${id}`);
-            }
+        //     if (modifiedCount === 0) {
+        //         throw new Error(`Failed to update favorite property of listing with id: ${id}`);
+        //     }
 
-            return updatedListing;
-        },
+        //     return updatedListing;
+        // },
     },
     Listing: {
         id: (listing: Listing) => listing._id.toString(),
-        numOfBookings: async (listing: Listing, _args: {}, { db }: { db: Database }) => {
-            const { address, image, title } = listing;
-            return await db.bookings.find({ address, image, title }).count();
-        },
+        // numOfBookings: async (listing: Listing, _args: {}, { db }: { db: Database }) => {
+        //     const { address, image, title } = listing;
+        //     return await db.bookings.find({ address, image, title }).count();
+        // },
     },
 };
