@@ -26,6 +26,11 @@ export const Login: FC<Props> = ({ setViewer }) => {
         onCompleted: (data) => {
             if (data && data.logIn) {
                 setViewer(data.logIn);
+                if (data.logIn.token) {
+                    sessionStorage.setItem('token', data.logIn.token);
+                } else {
+                    sessionStorage.removeItem('token');
+                }
                 displaySuccessNotification("You've successfully logged in!");
             }
         },

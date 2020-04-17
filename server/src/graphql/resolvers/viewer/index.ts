@@ -1,11 +1,23 @@
 import crypto from 'crypto';
+import { Response, Request } from 'express';
 import { IResolvers } from 'apollo-server-express';
 
+import { Configuration } from '../../../config';
 import { Google } from '../../../api/google';
 import { LogInArgs } from './types';
 import { Database, Viewer } from '../../../models';
 
-const logInViaGoogle = async (code: string, token: string, db: Database) => {
+const { ENVIRONMENT } = Configuration;
+
+const cookieOptions = {
+    httpOnly: true,
+    sameSite: true,
+    signed: true,
+    secure: ENVIRONMENT === 'development' ? false : true,
+};
+const ONE_YEAR_IN_MS = 365 * 24 * 60 * 60 * 1000;
+
+const logInViaGoogle = async (code: string, token: string, db: Database, res: Response) => {
     const { user } = await Google.logIn(code);
 
     if (!user) {
@@ -51,6 +63,20 @@ const logInViaGoogle = async (code: string, token: string, db: Database) => {
         viewer = insertResult.ops[0];
     }
 
+    res.cookie('viewer', userId, { ...cookieOptions, maxAge: ONE_YEAR_IN_MS });
+
+    return viewer;
+};
+
+const logInViaCookie = async (token: string, db: Database, req: Request, res: Response) => {
+    const updateResult = await db.users.findOneAndUpdate({ _id: req.signedCookies.viewer }, { $set: { token } }, { returnOriginal: false });
+
+    const viewer = updateResult.value;
+
+    if (!viewer) {
+        res.clearCookie('viewer', cookieOptions);
+    }
+
     return viewer;
 };
 
@@ -65,12 +91,12 @@ export const viewerResolvers: IResolvers = {
         },
     },
     Mutation: {
-        logIn: async (_root: undefined, { input }: LogInArgs, { db }: { db: Database }) => {
+        logIn: async (_root: undefined, { input }: LogInArgs, { db, req, res }: { db: Database; req: Request; res: Response }) => {
             try {
                 const code = input ? input.code : null;
                 const token = crypto.randomBytes(16).toString('hex');
 
-                const viewer = code ? await logInViaGoogle(code, token, db) : undefined;
+                const viewer = code ? await logInViaGoogle(code, token, db, res) : await logInViaCookie(token, db, req, res);
 
                 return {
                     didRequest: true,
@@ -85,8 +111,9 @@ export const viewerResolvers: IResolvers = {
                 throw new Error(`Failed to log in: ${err}`);
             }
         },
-        logOut: () => {
+        logOut: (_root: undefined, _args: {}, { res }: { res: Response }) => {
             try {
+                res.clearCookie('viewer', cookieOptions);
                 return { didRequest: true };
             } catch (err) {
                 throw new Error(`Failed to log out: ${err}`);

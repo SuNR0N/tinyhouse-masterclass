@@ -16,6 +16,7 @@ interface Configuration {
     ENVIRONMENT: string;
     PORT: number;
     PUBLIC_URL: string;
+    SECRET: string;
 }
 
 export const Configuration: Configuration = {
@@ -45,4 +46,5 @@ export const Configuration: Configuration = {
     ENVIRONMENT: process.env.NODE_ENV || 'development',
     PORT: process.env.PORT ? parseInt(process.env.PORT) : 9000,
     PUBLIC_URL: process.env.PUBLIC_URL || '',
+    SECRET: process.env.SECRET || '',
 };

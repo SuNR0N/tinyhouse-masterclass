@@ -1,51 +1,23 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { render } from 'react-dom';
-import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
 import ApolloClient from 'apollo-boost';
 import { ApolloProvider } from 'react-apollo';
-import { Affix, Layout } from 'antd';
 
-import './styles/styles.scss';
 import * as serviceWorker from './serviceWorker';
-// import { MessageContextProvider } from './core/contexts/message-context';
-import { Home, Host, Listing, Listings, Login, NotFound, User } from './pages';
-import { Viewer } from './core/models/viewer';
-import { AppHeader } from './components/app-header';
+import { App } from './app';
+import './styles/styles.scss';
 
 const client = new ApolloClient({
     uri: '/api',
+    request: async (operation) => {
+        const token = sessionStorage.getItem('token');
+        operation.setContext({
+            headers: {
+                'X-CSRF-TOKEN': token || '',
+            },
+        });
+    },
 });
-
-const initialViewer: Viewer = {
-    avatar: null,
-    didRequest: false,
-    hasWallet: null,
-    id: null,
-    token: null,
-};
-
-const App = () => {
-    const [viewer, setViewer] = useState<Viewer>(initialViewer);
-
-    return (
-        <Router>
-            <Layout id="app">
-                <Affix offsetTop={0}>
-                    <AppHeader viewer={viewer} setViewer={setViewer} />
-                </Affix>
-                <Switch>
-                    <Route exact path="/" component={Home} />
-                    <Route exact path="/host" component={Host} />
-                    <Route exact path="/listing/:id" component={Listing} />
-                    <Route exact path="/listings/:location?" component={Listings} />
-                    <Route exact path="/login" render={(props) => <Login {...props} setViewer={setViewer} />} />
-                    <Route exact path="/user/:id" component={User} />
-                    <Route component={NotFound} />
-                </Switch>
-            </Layout>
-        </Router>
-    );
-};
 
 render(
     <ApolloProvider client={client}>

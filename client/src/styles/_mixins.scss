@@ -1,11 +1,17 @@
 @mixin withTypo {
-    &.#{$prefix}typography {
+    @include extend(typography) {
         @content;
     }
 }
 
 @mixin withChildTypo {
     .#{$prefix}typography {
+        @content;
+    }
+}
+
+@mixin extend($cls) {
+    &.#{$prefix}#{$cls} {
         @content;
     }
 }
