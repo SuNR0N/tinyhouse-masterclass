@@ -1,0 +1,35 @@
+@import '../../../../styles/_variables';
+@import '../../../../styles/_functions';
+@import '../../../../styles/_mixins';
+
+.user-profile {
+    max-width: 400px;
+    margin: 0 auto;
+    display: block;
+
+    &__card {
+        width: 100%;
+    }
+
+    &__avatar {
+        text-align: center;
+    }
+
+    &__details {
+        h4 {
+            @include withTypo {
+                color: color(purple);
+            }
+        }
+
+        div {
+            @include withTypo {
+                font-size: $font-size-small;
+            }
+        }
+
+        &-cta {
+            margin-bottom: 20px;
+        }
+    }
+}

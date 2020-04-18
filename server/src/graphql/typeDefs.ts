@@ -1,6 +1,59 @@
 import { gql } from 'apollo-server-express';
 
 export const typeDefs = gql`
+    type Booking {
+        id: ID!
+        listing: Listing!
+        tenant: User!
+        checkIn: String!
+        checkOut: String!
+    }
+
+    type Bookings {
+        total: Int!
+        result: [Booking!]!
+    }
+
+    enum ListingType {
+        APARTMENT
+        HOUSE
+    }
+
+    type Listing {
+        id: ID!
+        title: String!
+        description: String!
+        image: String!
+        host: User!
+        type: ListingType!
+        address: String!
+        city: String!
+        bookings(limit: Int!, page: Int!): Bookings
+        bookingsIndex: String!
+        price: Int!
+        numOfGuests: Int!
+        # numOfBaths: Int!
+        # numOfBeds: Int!
+        # rating: Float!
+    }
+
+    type Listings {
+        total: Int!
+        result: [Listing!]!
+    }
+
+    type User {
+        id: ID!
+        name: String!
+        avatar: String!
+        contact: String!
+        hasWallet: Boolean!
+        income: Int
+        bookings(limit: Int!, page: Int!): Bookings
+        listings(limit: Int!, page: Int!): Listings!
+        # favorites: Listings!
+    }
+
     type Viewer {
         id: ID
         token: String
@@ -13,32 +66,11 @@ export const typeDefs = gql`
         code: String!
     }
 
-    type Listing {
-        id: ID!
-        address: String!
-        favorite: Boolean!
-        image: String!
-        numOfBaths: Int!
-        numOfBeds: Int!
-        numOfBookings: Int!
-        numOfGuests: Int!
-        price: Int!
-        rating: Float!
-        title: String!
-    }
-
-    type Booking {
-        id: ID!
-        title: String!
-        image: String!
-        address: String!
-        timestamp: String!
-    }
-
     type Query {
         authUrl: String!
         bookings: [Booking!]!
         listings: [Listing!]!
+        user(id: ID!): User!
     }
 
     type Mutation {

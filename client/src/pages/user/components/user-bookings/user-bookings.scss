@@ -1,0 +1,41 @@
+@import '../../../../styles/_variables';
+@import '../../../../styles/_functions';
+@import '../../../../styles/_mixins';
+
+.user-bookings {
+    padding-top: 40px;
+
+    &__title {
+        @include withTypo {
+            color: color(purple);
+            display: inline-block;
+        }
+    }
+
+    &__description {
+        @include withTypo {
+            font-size: $font-size-small;
+        }
+    }
+
+    .#{$prefix}list-pagination {
+        padding-bottom: 20px;
+    }
+
+    &__booking-item {
+        margin: 20px 0;
+    }
+
+    &__booking-history {
+        margin-bottom: 20px;
+
+        > div {
+            font-size: $font-size-xsmall;
+            margin-bottom: 5px;
+        }
+    }
+
+    &__booking-stars {
+        font-size: $font-size-xsmall;
+    }
+}
