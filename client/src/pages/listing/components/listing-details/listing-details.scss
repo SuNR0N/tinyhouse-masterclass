@@ -1,0 +1,92 @@
+@import '../../../../styles/_variables';
+@import '../../../../styles/_functions';
+@import '../../../../styles/_mixins';
+
+.listing-details {
+    h3,
+    h4 {
+        @include withTypo {
+            color: color(purple);
+        }
+    }
+
+    &__image {
+        width: 100%;
+        height: 570px;
+        background-size: cover;
+        background-position: 50%;
+        margin-bottom: 20px;
+
+        @media (max-width: 75em) {
+            height: 380px;
+        }
+    }
+
+    &__title {
+        @include withTypo {
+            margin-top: 5px !important;
+            margin-bottom: 5px;
+
+            span {
+                color: color(gray);
+                font-weight: $font-weight-normal;
+            }
+        }
+    }
+
+    &__city-address {
+        @include withTypo {
+            margin: 5px 0;
+        }
+    }
+
+    &__ratings {
+        @include withTypo {
+            margin: 5px 0;
+            font-size: $font-size-xsmall;
+        }
+    }
+
+    &__host-name {
+        font-family: $font-family, cursive;
+        display: inline-block;
+        padding-left: 10px;
+        position: relative;
+        top: 5px;
+    }
+
+    &__section {
+        font-size: $font-size-small;
+        padding: 5px 0;
+    }
+
+    &__about-items {
+        padding-bottom: 20px;
+    }
+
+    &__amenities-row {
+        padding: 5px 0;
+
+        i,
+        span {
+            padding: 0 2.5px;
+        }
+    }
+
+    &__booking-item {
+        margin: 20px 0;
+    }
+
+    &__booking-history {
+        margin-bottom: 20px;
+
+        > div {
+            font-size: $font-size-xsmall;
+            margin-bottom: 5px;
+        }
+    }
+
+    &__booking-stars {
+        font-size: $font-size-xsmall;
+    }
+}

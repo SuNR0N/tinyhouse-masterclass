@@ -1,0 +1,82 @@
+@import '../../../../styles/_variables';
+@import '../../../../styles/_functions';
+@import '../../../../styles/_mixins';
+
+.listing-create-booking {
+    max-width: 400px;
+    margin: 0 auto;
+    display: block;
+
+    &__card {
+        width: 100%;
+        text-align: center;
+
+        &-title {
+            @include withTypo {
+                color: color(purple);
+                margin-bottom: 5px;
+
+                span {
+                    color: color(gray);
+                    font-weight: $font-weight-normal;
+                }
+            }
+        }
+
+        &-date-picker {
+            padding-bottom: 20px;
+        }
+
+        &-cta {
+            display: block;
+            margin: 0 auto 10px;
+        }
+    }
+
+    &-modal {
+        text-align: center;
+        padding-top: 10px;
+
+        &__intro-title {
+            @include withTypo {
+                margin-top: 5px;
+
+                + h3 {
+                    @include withTypo {
+                        margin-top: 5px;
+                    }
+                }
+            }
+        }
+
+        &__charge-summary-total {
+            font-weight: $font-weight-bold;
+            font-size: $font-size-small;
+        }
+
+        &__charge-summary-stripe {
+            display: block;
+            font-size: $font-size-xxsmall;
+            padding-top: 5px;
+        }
+
+        &__stripe-card {
+            padding: 10px;
+            margin: 40px 0;
+            border: 1px solid color(gray, light);
+            box-shadow: 0 2px 4px rgba(29, 34, 108, 0.1);
+
+            &-section {
+                padding-bottom: 10px;
+            }
+        }
+
+        &__cta {
+            width: 100px;
+        }
+    }
+
+    @media (max-width: 62em) {
+        padding-top: 40px;
+    }
+}

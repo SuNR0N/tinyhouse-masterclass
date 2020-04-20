@@ -70,3 +70,8 @@ Generates the _GraphQL_ schema of the server project and based on that the _Type
 -   [ ] -   Create ViewerContext
 -   [ ] -   Generate JS classnames from SCSS
 -   [ ] -   Create constants for texts
+-   [ ] -   Remove inline styles
+-   [ ] -   Fix programmatic clearing of datepickers
+-   [ ] -   Remove unused styles
+-   [ ] -   Update README
+-   [ ] -   Rename component files from index to their actual names

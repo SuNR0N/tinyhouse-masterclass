@@ -2,7 +2,8 @@ import { IResolvers } from 'apollo-server-express';
 import { Request } from 'express';
 
 import { Database, User, Booking, Listing } from '../../../models';
-import { UserArgs, PaginationArgs, PaginatedListData } from './types';
+import { UserArgs } from './types';
+import { PaginatedListData, PaginationArgs } from '../types';
 import { authorize } from '../../../utils';
 
 export const userResolvers: IResolvers = {
