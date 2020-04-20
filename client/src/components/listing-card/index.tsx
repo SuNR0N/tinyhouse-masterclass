@@ -4,7 +4,8 @@ import { Card, Typography } from 'antd';
 import { UserOutlined } from '@ant-design/icons';
 
 import { Listing } from '../../core/models/listing';
-import { formatListingPrice } from '../../core/utils';
+import { formatListingPrice, resolveRoute } from '../../core/utils';
+import { AppRoute } from '../../core/config/app-route';
 import * as styles from './listing-card.scss';
 
 const { Text, Title } = Typography;
@@ -17,7 +18,7 @@ export const ListingCard: FC<Props> = ({ listing }) => {
     const { address, id, title, image, numOfGuests, price } = listing;
 
     return (
-        <Link to={`/listing/${id}`}>
+        <Link to={resolveRoute(AppRoute.LISTING, id)}>
             <Card hoverable cover={<div className="listing-card__cover-img" style={{ backgroundImage: `url(${image})` }} />}>
                 <div className="listing-card__details">
                     <div className="listing-card__description">

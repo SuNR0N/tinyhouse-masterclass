@@ -8,6 +8,7 @@ import { LogIn as LogInData, LogInVariables } from './core/graphql/mutations/__g
 import { LOG_IN } from './core/graphql/mutations/log-in';
 import { AppHeaderSkeleton, ErrorBanner, AppHeader } from './components';
 import { Home, Host, Listing, Listings, Login, NotFound, User } from './pages';
+import { AppRoute } from './core/config/app-route';
 import './app.scss';
 
 const initialViewer: Viewer = {
@@ -62,12 +63,12 @@ export const App: FC = () => {
                     <AppHeader viewer={viewer} setViewer={setViewer} />
                 </Affix>
                 <Switch>
-                    <Route exact path="/" component={Home} />
-                    <Route exact path="/host" component={Host} />
-                    <Route exact path="/listing/:id" component={Listing} />
-                    <Route exact path="/listings/:location?" component={Listings} />
-                    <Route exact path="/login" render={(props) => <Login {...props} setViewer={setViewer} />} />
-                    <Route exact path="/user/:id" render={(props) => <User {...props} viewer={viewer} />} />
+                    <Route exact path={AppRoute.HOME} component={Home} />
+                    <Route exact path={AppRoute.HOST} component={Host} />
+                    <Route exact path={AppRoute.LISTING} component={Listing} />
+                    <Route exact path={AppRoute.LISTINGS} component={Listings} />
+                    <Route exact path={AppRoute.LOGIN} render={(props) => <Login {...props} setViewer={setViewer} />} />
+                    <Route exact path={AppRoute.USER} render={(props) => <User {...props} viewer={viewer} />} />
                     <Route component={NotFound} />
                 </Switch>
             </Layout>

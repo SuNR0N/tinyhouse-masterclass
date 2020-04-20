@@ -3,7 +3,7 @@ import { ObjectId } from 'mongodb';
 import { Request } from 'express';
 
 import { Database, Listing, Booking } from '../../../models';
-import { ListingArgs } from './types';
+import { ListingArgs, ListingsArgs, ListingsFilter } from './types';
 import { authorize } from '../../../utils';
 import { PaginatedListData, PaginationArgs } from '../types';
 
@@ -29,8 +29,34 @@ export const listingResolvers: IResolvers = {
                 throw new Error(`Failed to query listing: ${err}`);
             }
         },
-        listings: async (_root: undefined, _args: {}, { db }: { db: Database }) => {
-            return await db.listings.find({}).toArray();
+        listings: async (_root: undefined, { filter, limit, page }: ListingsArgs, { db }: { db: Database }) => {
+            try {
+                const data: PaginatedListData<Listing> = {
+                    total: 0,
+                    result: [],
+                };
+
+                let cursor = await db.listings.find({});
+
+                switch (filter) {
+                    case ListingsFilter.PRICE_HIGH_TO_LOW:
+                        cursor.sort({ price: -1 });
+                        break;
+                    case ListingsFilter.PRICE_LOW_TO_HIGH:
+                        cursor.sort({ price: 1 });
+                        break;
+                }
+
+                cursor = cursor.skip(page > 0 ? (page - 1) * limit : 0);
+                cursor = cursor.limit(limit);
+
+                data.total = await cursor.count();
+                data.result = await cursor.toArray();
+
+                return data;
+            } catch (err) {
+                throw new Error(`Failed to query listings: ${err}`);
+            }
         },
     },
     Mutation: {

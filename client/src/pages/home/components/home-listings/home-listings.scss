@@ -1,0 +1,14 @@
+@import '../../../../styles/_variables';
+@import '../../../../styles/_functions';
+@import '../../../../styles/_mixins';
+
+.home-listings {
+    padding: 40px 0 20px;
+
+    &__title {
+        @include withTypo {
+            color: color(purple);
+            display: inline-block;
+        }
+    }
+}

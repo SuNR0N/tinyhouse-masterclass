@@ -1,4 +1,5 @@
 import { message, notification } from 'antd';
+import { AppRoute } from '../config/app-route';
 
 export const formatListingPrice = (price: number, round = true) => {
     const formattedListingPrice = round ? Math.round(price / 100) : price / 100;
@@ -16,3 +17,15 @@ export const displaySuccessNotification = (message: string, description?: string
     });
 
 export const displayErrorMessage = (error: string) => message.error(error);
+
+export const resolveRoute = (route: AppRoute, ...args: any[]) => {
+    const regExp = /(:\w+)/g;
+    const matches = route.match(regExp);
+    return args.reduce<string>((acc, arg, i) => {
+        const match = matches && matches[i];
+        if (match) {
+            acc = acc.replace(match, arg);
+        }
+        return acc;
+    }, route);
+};

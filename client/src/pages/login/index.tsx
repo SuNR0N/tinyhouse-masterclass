@@ -4,14 +4,15 @@ import { useApolloClient, useMutation } from '@apollo/react-hooks';
 import { Card, Layout, Typography, Spin } from 'antd';
 
 import { ErrorBanner } from '../../components/error-banner';
-import { displayErrorMessage, displaySuccessNotification } from '../../core/utils';
+import { displayErrorMessage, displaySuccessNotification, resolveRoute } from '../../core/utils';
 import { AUTH_URL } from '../../core/graphql/queries';
 import { AuthUrl as AuthUrlData } from '../../core/graphql/queries/__generated__/AuthUrl';
 import { LogIn as LogInData, LogInVariables } from '../../core/graphql/mutations/__generated__/LogIn';
 import googleLogo from '../../assets/google_logo.png';
-import './log-in.scss';
 import { Viewer } from '../../core/models/viewer';
 import { LOG_IN } from '../../core/graphql/mutations';
+import { AppRoute } from '../../core/config/app-route';
+import './log-in.scss';
 
 const { Content } = Layout;
 const { Text, Title } = Typography;
@@ -72,7 +73,7 @@ export const Login: FC<Props> = ({ setViewer }) => {
 
     if (logInData && logInData.logIn) {
         const { id: viewerId } = logInData.logIn;
-        return <Redirect to={`/user/${viewerId}`} />;
+        return <Redirect to={resolveRoute(AppRoute.USER, viewerId)} />;
     }
 
     const logInErrorBannerElement = logInError ? (

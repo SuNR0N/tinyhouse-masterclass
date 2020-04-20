@@ -14,40 +14,40 @@ import './listings.scss';
 const List = ListFactory<Listing>();
 
 const LISTINGS = gql`
-    query Listings {
-        listings {
-            id
-            title
-            image
-            address
-            numOfBookings
-            favorite
-        }
-    }
+    # query Listings {
+    #     listings {
+    #         id
+    #         title
+    #         image
+    #         address
+    #         numOfBookings
+    #         favorite
+    #     }
+    # }
 `;
 
 const DELETE_LISTING = gql`
-    mutation DeleteListing($id: ID!) {
-        deleteListing(id: $id) {
-            id
-        }
-    }
+    # mutation DeleteListing($id: ID!) {
+    #     deleteListing(id: $id) {
+    #         id
+    #     }
+    # }
 `;
 
 const CREATE_BOOKING = gql`
-    mutation CreateBooking($id: ID!, $timestamp: String!) {
-        createBooking(id: $id, timestamp: $timestamp) {
-            id
-        }
-    }
+    # mutation CreateBooking($id: ID!, $timestamp: String!) {
+    #     createBooking(id: $id, timestamp: $timestamp) {
+    #         id
+    #     }
+    # }
 `;
 
 const FAVORITE_LISTING = gql`
-    mutation FavoriteListing($id: ID!) {
-        favoriteListing(id: $id) {
-            id
-        }
-    }
+    # mutation FavoriteListing($id: ID!) {
+    #     favoriteListing(id: $id) {
+    #         id
+    #     }
+    # }
 `;
 
 const getErrorMessage = (reason = '') => {

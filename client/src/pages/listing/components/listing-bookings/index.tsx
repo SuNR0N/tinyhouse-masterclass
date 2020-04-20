@@ -3,6 +3,8 @@ import { Link } from 'react-router-dom';
 import { Avatar, Divider, List, Typography } from 'antd';
 
 import { Listing } from '../../../../core/graphql/queries/__generated__/Listing';
+import { resolveRoute } from '../../../../core/utils';
+import { AppRoute } from '../../../../core/config/app-route';
 import './listing-bookings.scss';
 
 const { Text, Title } = Typography;
@@ -51,7 +53,7 @@ export const ListingBookings: FC<Props> = ({ bookingsPage, limit, listingBooking
                 return (
                     <List.Item className="listing-bookings__item">
                         {bookingHistory}
-                        <Link to={`/user/${listingBooking.tenant.id}`}>
+                        <Link to={resolveRoute(AppRoute.USER, listingBooking.tenant.id)}>
                             <Avatar src={listingBooking.tenant.avatar} size={64} shape="square" />
                         </Link>
                     </List.Item>

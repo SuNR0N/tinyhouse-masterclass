@@ -4,6 +4,8 @@ import { Avatar, Divider, Tag, Typography } from 'antd';
 import { EnvironmentOutlined } from '@ant-design/icons';
 
 import { Listing as ListingData } from '../../../../core/graphql/queries/__generated__/Listing';
+import { resolveRoute } from '../../../../core/utils';
+import { AppRoute } from '../../../../core/config/app-route';
 import * as styles from './listing-details.scss';
 
 const { Paragraph, Title } = Typography;
@@ -21,7 +23,7 @@ export const ListingDetails: FC<Props> = ({ listing }) => {
 
             <div className="listing-details__information">
                 <Paragraph type="secondary" ellipsis className="listing-details__city-address">
-                    <Link to={`/listings/${city}`}>
+                    <Link to={resolveRoute(AppRoute.LISTINGS, city)}>
                         <EnvironmentOutlined style={{ color: styles.iconColor }} /> {city}
                     </Link>
                     <Divider type="vertical" />
@@ -35,7 +37,7 @@ export const ListingDetails: FC<Props> = ({ listing }) => {
             <Divider />
 
             <div className="listing-details__section">
-                <Link to={`/user/${host.id}`}>
+                <Link to={resolveRoute(AppRoute.USER, host.id)}>
                     <Avatar src={host.avatar} size={64} />
                     <Title level={2} className="listing-details__host-name">
                         {host.name}

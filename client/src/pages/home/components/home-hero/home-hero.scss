@@ -1,0 +1,64 @@
+@import '../../../../styles/_variables';
+@import '../../../../styles/_functions';
+@import '../../../../styles/_mixins';
+
+.home-hero {
+    padding-bottom: 40px;
+    width: 100%;
+
+    &__search {
+        max-width: 600px;
+
+        &-input input {
+            border: 1px solid color(gray, light);
+            box-shadow: 0 2px 4px rgba(29, 34, 108, 0.1);
+        }
+    }
+
+    &__title {
+        @include withTypo {
+            color: color(purple);
+        }
+    }
+
+    &__cards {
+        padding-top: 60px;
+
+        .#{$prefix}card {
+            background: transparent;
+            cursor: pointer;
+
+            &-cover {
+                &:before {
+                    content: '';
+                    display: block;
+                    position: absolute;
+                    top: 0;
+                    bottom: 0;
+                    left: 0;
+                    right: 0;
+                    background: color(purple);
+                    opacity: 0.5;
+                    -webkit-transition: all 0.3s linear;
+                    transition: all 0.3s linear;
+                }
+
+                &:hover {
+                    &:before {
+                        background: none;
+                    }
+                }
+            }
+
+            &-body {
+                padding-top: 0;
+                padding-bottom: 0;
+                height: 0;
+                color: color(white);
+                font-weight: $font-weight-bold;
+                position: relative;
+                bottom: 40px;
+            }
+        }
+    }
+}

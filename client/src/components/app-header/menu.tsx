@@ -7,7 +7,8 @@ import { HomeOutlined, LogoutOutlined, UserOutlined } from '@ant-design/icons';
 import { LOG_OUT } from '../../core/graphql/mutations';
 import { LogOut as LogOutData } from '../../core/graphql/mutations/__generated__/LogOut';
 import { Viewer } from '../../core/models/viewer';
-import { displaySuccessNotification, displayErrorMessage } from '../../core/utils';
+import { displaySuccessNotification, displayErrorMessage, resolveRoute } from '../../core/utils';
+import { AppRoute } from '../../core/config/app-route';
 import './menu.scss';
 
 const { Item, SubMenu } = ADMenu;
@@ -39,7 +40,7 @@ export const Menu: FC<Props> = ({ viewer, setViewer }) => {
         viewer.id && viewer.avatar ? (
             <SubMenu title={<Avatar src={viewer.avatar} />}>
                 <Item key="/user">
-                    <Link to={`/user/${viewer.id}`}>
+                    <Link to={resolveRoute(AppRoute.USER, viewer.id)}>
                         <UserOutlined />
                         Profile
                     </Link>
@@ -53,7 +54,7 @@ export const Menu: FC<Props> = ({ viewer, setViewer }) => {
             </SubMenu>
         ) : (
             <Item>
-                <Link to="/login">
+                <Link to={AppRoute.LOGIN}>
                     <Button type="primary">Sign In</Button>
                 </Link>
             </Item>
@@ -62,7 +63,7 @@ export const Menu: FC<Props> = ({ viewer, setViewer }) => {
     return (
         <ADMenu mode="horizontal" selectable={false} className="menu">
             <Item key="/host">
-                <Link to="/host">
+                <Link to={AppRoute.HOST}>
                     <HomeOutlined />
                     Host
                 </Link>

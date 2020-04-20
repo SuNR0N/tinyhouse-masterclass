@@ -1,0 +1,56 @@
+@import '../../styles/_variables';
+@import '../../styles/_functions';
+@import '../../styles/_mixins';
+
+.home {
+    padding: 60px 120px;
+    background-image: url('../../assets/map-background.png');
+    background-repeat: no-repeat;
+    background-position: 10% 0;
+
+    &__cta-section {
+        padding: 40px 0;
+        max-width: 700px;
+        text-align: center;
+        margin: 0 auto;
+
+        &-title {
+            @include withTypo {
+                color: color(purple);
+            }
+        }
+
+        &-button {
+            margin-top: 20px;
+        }
+    }
+
+    &__listings {
+        padding: 40px 0 20px;
+
+        &-title {
+            @include withTypo {
+                color: color(purple);
+                display: inline-block;
+            }
+        }
+
+        &-img-cover {
+            width: 100%;
+            cursor: pointer;
+
+            @media (max-width: 36em) {
+                padding: 10px 0;
+            }
+        }
+
+        &-img {
+            width: 100%;
+        }
+    }
+
+    @media (max-width: 75em) {
+        padding-left: 20px;
+        padding-right: 20px;
+    }
+}
