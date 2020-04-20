@@ -2,7 +2,7 @@ import React, { FC } from 'react';
 import { Card, List, Skeleton } from 'antd';
 
 import listingLoadingCardCover from '../../../../assets/listing-loading-card-cover.png';
-import './home-listings.scss';
+import './home-listings-skeleton.scss';
 
 export const HomeListingsSkeleton: FC = () => {
     const emptyData = Array.from({ length: 4 }).fill({});
