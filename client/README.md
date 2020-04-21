@@ -75,3 +75,5 @@ Generates the _GraphQL_ schema of the server project and based on that the _Type
 -   [ ] -   Remove unused styles
 -   [ ] -   Update README
 -   [ ] -   Rename component files from index to their actual names
+-   [ ] -   Use router hooks
+-   [ ] -   Implement usePrevious hook

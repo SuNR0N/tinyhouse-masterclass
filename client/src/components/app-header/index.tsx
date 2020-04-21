@@ -1,31 +1,71 @@
-import React, { FC, forwardRef } from 'react';
-import { Link } from 'react-router-dom';
-import { Layout } from 'antd';
+import React, { FC, forwardRef, useEffect, useState } from 'react';
+import { Link, useLocation, useHistory } from 'react-router-dom';
+import { Input, Layout } from 'antd';
 
 import { Menu } from './menu';
 import { Viewer } from '../../core/models/viewer';
-import logo from '../../assets/tinyhouse-logo.png';
 import { AppRoute } from '../../core/config/app-route';
+import { displayErrorMessage, resolveRoute } from '../../core/utils';
+import logo from '../../assets/tinyhouse-logo.png';
 import './app-header.scss';
 
 const { Header } = Layout;
+const { Search } = Input;
 
 interface Props {
     viewer: Viewer;
     setViewer: (viewer: Viewer) => void;
 }
 
-export const AppHeader: FC<Props> = forwardRef(({ viewer, setViewer }, _ref) => (
-    <Header className="app-header">
-        <div className="app-header__logo-search-section">
-            <div className="app-header__logo">
-                <Link to={AppRoute.HOME}>
-                    <img src={logo} alt="App logo" />
-                </Link>
+export const AppHeader: FC<Props> = forwardRef(({ viewer, setViewer }, _ref) => {
+    const location = useLocation();
+    const history = useHistory();
+    const [search, setSearch] = useState('');
+
+    useEffect(() => {
+        const { pathname } = location;
+
+        if (!pathname.includes('/listings')) {
+            setSearch('');
+        } else {
+            const param = pathname.split('/')[2];
+            if (param) {
+                setSearch(param);
+            }
+        }
+    }, [location]);
+
+    const onSearch = (value: string) => {
+        const trimmedValue = value.trim();
+
+        if (trimmedValue) {
+            history.push(resolveRoute(AppRoute.LISTINGS, trimmedValue));
+        } else {
+            displayErrorMessage('Please enter a valid search!');
+        }
+    };
+
+    return (
+        <Header className="app-header">
+            <div className="app-header__logo-search-section">
+                <div className="app-header__logo">
+                    <Link to={AppRoute.HOME}>
+                        <img src={logo} alt="App logo" />
+                    </Link>
+                </div>
+                <div className="app-header__search-input">
+                    <Search
+                        value={search}
+                        onChange={(event) => setSearch(event.target.value)}
+                        placeholder="Search 'San Francisco'"
+                        enterButton
+                        onSearch={onSearch}
+                    />
+                </div>
             </div>
-        </div>
-        <div className="app-header__menu-section">
-            <Menu viewer={viewer} setViewer={setViewer} />
-        </div>
-    </Header>
-));
+            <div className="app-header__menu-section">
+                <Menu viewer={viewer} setViewer={setViewer} />
+            </div>
+        </Header>
+    );
+});
