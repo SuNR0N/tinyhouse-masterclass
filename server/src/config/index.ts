@@ -13,6 +13,7 @@ interface Configuration {
     DB_USER: string;
     GOOGLE_CLIENT_ID: string;
     GOOGLE_CLIENT_SECRET: string;
+    GOOGLE_GEOCODE_KEY: string;
     ENVIRONMENT: string;
     PORT: number;
     PUBLIC_URL: string;
@@ -43,6 +44,7 @@ export const Configuration: Configuration = {
     DB_USER: process.env.DB_USER || '',
     GOOGLE_CLIENT_ID: process.env.GOOGLE_CLIENT_ID || '',
     GOOGLE_CLIENT_SECRET: process.env.GOOGLE_CLIENT_SECRET || '',
+    GOOGLE_GEOCODE_KEY: process.env.GOOGLE_GEOCODE_KEY || '',
     ENVIRONMENT: process.env.NODE_ENV || 'development',
     PORT: process.env.PORT ? parseInt(process.env.PORT) : 9000,
     PUBLIC_URL: process.env.PUBLIC_URL || '',

@@ -1,4 +1,5 @@
-import { PaginationArgs } from '../types';
+import { PaginationArgs, PaginatedListData } from '../types';
+import { Listing } from '../../../models/listing';
 
 export enum ListingsFilter {
     PRICE_LOW_TO_HIGH = 'PRICE_LOW_TO_HIGH',
@@ -11,4 +12,15 @@ export interface ListingArgs {
 
 export interface ListingsArgs extends PaginationArgs {
     filter: ListingsFilter;
+    location: string | null;
+}
+
+export interface ListingsQuery {
+    country?: string;
+    admin?: string;
+    city?: string;
+}
+
+export interface ListingsData extends PaginatedListData<Listing> {
+    region: string | null;
 }

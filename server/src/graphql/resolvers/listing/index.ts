@@ -3,9 +3,10 @@ import { ObjectId } from 'mongodb';
 import { Request } from 'express';
 
 import { Database, Listing, Booking } from '../../../models';
-import { ListingArgs, ListingsArgs, ListingsFilter } from './types';
+import { ListingArgs, ListingsArgs, ListingsFilter, ListingsQuery, ListingsData } from './types';
 import { authorize } from '../../../utils';
 import { PaginatedListData, PaginationArgs } from '../types';
+import { Google } from '../../../api/google';
 
 export const listingResolvers: IResolvers = {
     Query: {
@@ -29,14 +30,33 @@ export const listingResolvers: IResolvers = {
                 throw new Error(`Failed to query listing: ${err}`);
             }
         },
-        listings: async (_root: undefined, { filter, limit, page }: ListingsArgs, { db }: { db: Database }) => {
+        listings: async (_root: undefined, { filter, limit, location, page }: ListingsArgs, { db }: { db: Database }) => {
             try {
-                const data: PaginatedListData<Listing> = {
+                const query: ListingsQuery = {};
+                const data: ListingsData = {
+                    region: null,
                     total: 0,
                     result: [],
                 };
 
-                let cursor = await db.listings.find({});
+                if (location) {
+                    const { admin, city, country } = await Google.geocode(location);
+                    if (city) {
+                        query.city = city;
+                    }
+                    if (admin) {
+                        query.admin = admin;
+                    }
+                    if (country) {
+                        query.country = country;
+                    } else {
+                        throw new Error('No country found');
+                    }
+
+                    data.region = [city, admin, country].filter(Boolean).join(', ');
+                }
+
+                let cursor = await db.listings.find(query);
 
                 switch (filter) {
                     case ListingsFilter.PRICE_HIGH_TO_LOW:

@@ -1,0 +1,29 @@
+@import '../../styles/_variables';
+@import '../../styles/_functions';
+@import '../../styles/_mixins';
+
+.listings {
+    padding: 60px 120px;
+
+    &--none {
+        @include withChildTypo {
+            font-size: $font-size-small;
+        }
+    }
+
+    &__affix {
+        background: color(white);
+        padding: 10px 0;
+    }
+
+    &__title {
+        @include withTypo {
+            color: color(purple);
+        }
+    }
+
+    @media (max-width: 75em) {
+        padding-left: 20px;
+        padding-right: 20px;
+    }
+}
