@@ -64,7 +64,7 @@ export const App: FC = () => {
                 </Affix>
                 <Switch>
                     <Route exact path={AppRoute.HOME} component={Home} />
-                    <Route exact path={AppRoute.HOST} component={Host} />
+                    <Route exact path={AppRoute.HOST} render={(props) => <Host {...props} viewer={viewer} />} />
                     <Route exact path={AppRoute.LISTING} component={Listing} />
                     <Route exact path={AppRoute.LISTINGS} component={Listings} />
                     <Route exact path={AppRoute.LOGIN} render={(props) => <Login {...props} setViewer={setViewer} />} />

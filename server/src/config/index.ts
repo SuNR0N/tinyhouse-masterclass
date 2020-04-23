@@ -17,6 +17,7 @@ interface Configuration {
     ENVIRONMENT: string;
     PORT: number;
     PUBLIC_URL: string;
+    REQUEST_BODY_LIMIT: string;
     SECRET: string;
     STRIPE_SECRET_KEY: string;
 }
@@ -49,6 +50,7 @@ export const Configuration: Configuration = {
     ENVIRONMENT: process.env.NODE_ENV || 'development',
     PORT: process.env.PORT ? parseInt(process.env.PORT) : 9000,
     PUBLIC_URL: process.env.PUBLIC_URL || '',
+    REQUEST_BODY_LIMIT: '2mb',
     SECRET: process.env.SECRET || '',
     STRIPE_SECRET_KEY: process.env.STRIPE_SECRET_KEY || '',
 };

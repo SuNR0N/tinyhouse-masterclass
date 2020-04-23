@@ -17,39 +17,6 @@ html {
     width: 100%;
 }
 
-.host {
-    &-content {
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        padding: 40px 100px;
-        max-width: 900px;
-        margin: 0 auto;
-
-        @media (max-width: 62em) {
-            padding-left: 20px;
-            padding-right: 20px;
-        }
-    }
-
-    &__form {
-        &-header {
-            padding-bottom: 20px;
-        }
-
-        &-title {
-            @include withTypo {
-                color: color(purple);
-                margin-bottom: 5px;
-            }
-        }
-
-        &-image-upload img {
-            width: 125px;
-        }
-    }
-}
-
 .not-found {
     display: flex;
     flex-direction: column;
