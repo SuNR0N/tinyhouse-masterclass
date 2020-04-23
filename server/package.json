@@ -23,7 +23,8 @@
         "googleapis": "^49.0.0",
         "graphql": "^14.6.0",
         "lodash": "^4.17.15",
-        "mongodb": "^3.5.5"
+        "mongodb": "^3.5.5",
+        "stripe": "^8.44.0"
     },
     "devDependencies": {
         "@types/cookie-parser": "^1.4.2",
@@ -33,6 +34,7 @@
         "@types/lodash": "^4.14.149",
         "@types/mongodb": "^3.5.4",
         "@types/node": "^13.11.0",
+        "@types/stripe": "^7.13.23",
         "@typescript-eslint/eslint-plugin": "^2.26.0",
         "@typescript-eslint/parser": "^2.26.0",
         "eslint": "^6.8.0",

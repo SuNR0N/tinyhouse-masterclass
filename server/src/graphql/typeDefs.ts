@@ -74,6 +74,10 @@ export const typeDefs = gql`
         code: String!
     }
 
+    input ConnectStripeInput {
+        code: String!
+    }
+
     type Query {
         authUrl: String!
         bookings: [Booking!]!
@@ -85,6 +89,8 @@ export const typeDefs = gql`
     type Mutation {
         logIn(input: LogInInput): Viewer!
         logOut: Viewer!
+        connectStripe(input: ConnectStripeInput!): Viewer!
+        disconnectStripe: Viewer!
         createBooking(id: ID!, timestamp: String!): Booking!
         deleteListing(id: ID!): Listing!
         favoriteListing(id: ID!): Listing!

@@ -7,7 +7,7 @@ import { Viewer } from './core/models/viewer';
 import { LogIn as LogInData, LogInVariables } from './core/graphql/mutations/__generated__/LogIn';
 import { LOG_IN } from './core/graphql/mutations/log-in';
 import { AppHeaderSkeleton, ErrorBanner, AppHeader } from './components';
-import { Home, Host, Listing, Listings, Login, NotFound, User } from './pages';
+import { Home, Host, Listing, Listings, Login, NotFound, Stripe, User } from './pages';
 import { AppRoute } from './core/config/app-route';
 import './app.scss';
 
@@ -68,7 +68,8 @@ export const App: FC = () => {
                     <Route exact path={AppRoute.LISTING} component={Listing} />
                     <Route exact path={AppRoute.LISTINGS} component={Listings} />
                     <Route exact path={AppRoute.LOGIN} render={(props) => <Login {...props} setViewer={setViewer} />} />
-                    <Route exact path={AppRoute.USER} render={(props) => <User {...props} viewer={viewer} />} />
+                    <Route exact path={AppRoute.STRIPE} render={(props) => <Stripe {...props} setViewer={setViewer} viewer={viewer} />} />
+                    <Route exact path={AppRoute.USER} render={(props) => <User {...props} setViewer={setViewer} viewer={viewer} />} />
                     <Route component={NotFound} />
                 </Switch>
             </Layout>

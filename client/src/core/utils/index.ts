@@ -1,9 +1,9 @@
 import { message, notification } from 'antd';
 import { AppRoute } from '../config/app-route';
 
-export const formatListingPrice = (price: number, round = true) => {
-    const formattedListingPrice = round ? Math.round(price / 100) : price / 100;
-    return `£${formattedListingPrice}`;
+export const formatPrice = (price: number, round = true) => {
+    const formattedPrice = round ? Math.round(price / 100) : price / 100;
+    return `£${formattedPrice}`;
 };
 
 export const displaySuccessNotification = (message: string, description?: string) =>

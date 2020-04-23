@@ -2,7 +2,7 @@ import React, { FC } from 'react';
 import { Button, Card, DatePicker, Divider, Typography } from 'antd';
 import moment, { Moment } from 'moment';
 
-import { formatListingPrice, displayErrorMessage } from '../../../../core/utils';
+import { formatPrice, displayErrorMessage } from '../../../../core/utils';
 import './listing-create-booking.scss';
 
 const { Paragraph, Title } = Typography;
@@ -47,7 +47,7 @@ export const ListingCreateBooking: FC<Props> = ({ checkInDate, checkOutDate, pri
                 <div>
                     <Paragraph>
                         <Title level={2} className="listing-create-booking__card-title">
-                            {formatListingPrice(price)}
+                            {formatPrice(price)}
                             <span>/day</span>
                         </Title>
                     </Paragraph>

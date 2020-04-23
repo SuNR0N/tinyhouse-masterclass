@@ -17,17 +17,24 @@ interface MatchParams {
 }
 
 interface Props extends RouteComponentProps<MatchParams> {
+    setViewer: (viewer: Viewer) => void;
     viewer: Viewer;
 }
 
 const PAGE_LIMIT = 4;
 
-export const User: FC<Props> = ({ match, viewer }) => {
+export const User: FC<Props> = ({ match, setViewer, viewer }) => {
     const [listingsPage, setListingsPage] = useState(1);
     const [bookingsPage, setBookingsPage] = useState(1);
-    const { data, loading, error } = useQuery<UserData, UserVariables>(USER, {
+    const { data, loading, error, refetch } = useQuery<UserData, UserVariables>(USER, {
         variables: { id: match.params.id, bookingsPage, listingsPage, limit: PAGE_LIMIT },
     });
+
+    const handleUserRefetch = async () => {
+        await refetch();
+    };
+
+    const stripeError = new URL(window.location.href).searchParams.get('stripe_error');
 
     if (loading || error) {
         return (
@@ -44,16 +51,22 @@ export const User: FC<Props> = ({ match, viewer }) => {
     const userListings = user ? user.listings : null;
     const userBookings = user ? user.bookings : null;
 
-    const userProfileElement = user ? <UserProfile user={user} viewerIsUser={viewerIsUser} /> : null;
+    const userProfileElement = user ? (
+        <UserProfile handleUserRefetch={handleUserRefetch} setViewer={setViewer} user={user} viewer={viewer} viewerIsUser={viewerIsUser} />
+    ) : null;
     const userListingsElement = userListings ? (
         <UserListings userListings={userListings} listingsPage={listingsPage} limit={PAGE_LIMIT} setListingsPage={setListingsPage} />
     ) : null;
     const userBookingsElement = userBookings ? (
         <UserBookings userBookings={userBookings} bookingsPage={bookingsPage} limit={PAGE_LIMIT} setBookingsPage={setBookingsPage} />
     ) : null;
+    const stripeErrorBannerElement = stripeError ? (
+        <ErrorBanner description="We had an issue connecting with Stripe. Please try again soon." />
+    ) : null;
 
     return (
         <Content className="user">
+            {stripeErrorBannerElement}
             <Row gutter={12} justify="space-between">
                 <Col xs={24}>{userProfileElement}</Col>
                 <Col xs={24}>

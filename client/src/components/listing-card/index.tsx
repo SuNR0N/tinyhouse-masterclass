@@ -4,7 +4,7 @@ import { Card, Typography } from 'antd';
 import { UserOutlined } from '@ant-design/icons';
 
 import { Listing } from '../../core/models/listing';
-import { formatListingPrice, resolveRoute } from '../../core/utils';
+import { formatPrice, resolveRoute } from '../../core/utils';
 import { AppRoute } from '../../core/config/app-route';
 import * as styles from './listing-card.scss';
 
@@ -23,7 +23,7 @@ export const ListingCard: FC<Props> = ({ listing }) => {
                 <div className="listing-card__details">
                     <div className="listing-card__description">
                         <Title level={4} className="listing-card__price">
-                            {formatListingPrice(price)}
+                            {formatPrice(price)}
                             <span>/day</span>
                         </Title>
                         <Text strong ellipsis className="listing-card__title">
