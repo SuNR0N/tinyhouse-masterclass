@@ -6,6 +6,9 @@ type CollectionMap = {
 
 interface Configuration {
     API_PREFIX: string;
+    CLOUDINARY_CLOUD_NAME: string;
+    CLOUDINARY_API_KEY: string;
+    CLOUDINARY_API_SECRET: string;
     DB_CLUSTER: string;
     DB_COLLECTIONS: CollectionMap;
     DB_NAME: string;
@@ -24,6 +27,9 @@ interface Configuration {
 
 export const Configuration: Configuration = {
     API_PREFIX: '/api',
+    CLOUDINARY_CLOUD_NAME: process.env.CLOUDINARY_CLOUD_NAME || '',
+    CLOUDINARY_API_KEY: process.env.CLOUDINARY_API_KEY || '',
+    CLOUDINARY_API_SECRET: process.env.CLOUDINARY_API_SECRET || '',
     DB_CLUSTER: process.env.DB_CLUSTER || '',
     DB_COLLECTIONS: (process.env.DB_COLLECTIONS || '')
         .split(',')

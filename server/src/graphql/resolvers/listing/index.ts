@@ -6,7 +6,7 @@ import { Database, Listing, Booking, ListingType } from '../../../models';
 import { ListingArgs, ListingsArgs, ListingsFilter, ListingsQuery, ListingsData, HostListingInput, HostListingsArgs } from './types';
 import { authorize } from '../../../utils';
 import { PaginatedListData, PaginationArgs } from '../types';
-import { Google } from '../../../api/google';
+import { Cloudinary, Google } from '../../../api';
 
 const verifyHostListingInput = ({ title, description, type, price }: HostListingInput) => {
     if (title.length > 100) {
@@ -108,9 +108,12 @@ export const listingResolvers: IResolvers = {
                 throw new Error('Invalid address input');
             }
 
+            const imageUrl = await Cloudinary.upload(input.image);
+
             const insertResult = await db.listings.insertOne({
                 _id: new ObjectId(),
                 ...input,
+                image: imageUrl,
                 bookings: [],
                 bookingsIndex: {},
                 country,
