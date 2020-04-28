@@ -22,6 +22,7 @@ const PAGE_NUMBER = 1;
 export const Home: FC<RouteComponentProps> = ({ history }) => {
     const { loading, data } = useQuery<ListingsData, ListingsVariables>(LISTINGS, {
         variables: { filter: ListingsFilter.PRICE_HIGH_TO_LOW, limit: PAGE_LIMIT, page: PAGE_NUMBER },
+        fetchPolicy: 'cache-and-network',
     });
 
     const onSearch = (value: string) => {

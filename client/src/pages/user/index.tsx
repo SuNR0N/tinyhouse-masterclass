@@ -28,6 +28,7 @@ export const User: FC<Props> = ({ match, setViewer, viewer }) => {
     const [bookingsPage, setBookingsPage] = useState(1);
     const { data, loading, error, refetch } = useQuery<UserData, UserVariables>(USER, {
         variables: { id: match.params.id, bookingsPage, listingsPage, limit: PAGE_LIMIT },
+        fetchPolicy: 'cache-and-network',
     });
 
     const handleUserRefetch = async () => {
