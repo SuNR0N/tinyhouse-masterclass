@@ -16,33 +16,3 @@ html {
     height: 100%;
     width: 100%;
 }
-
-.not-found {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-
-    &__description {
-        &-title {
-            @include withTypo {
-                display: block;
-                padding-bottom: 10px;
-                color: color(purple);
-                font-size: $font-size-xxlarge;
-                font-weight: $font-weight-bold;
-            }
-        }
-
-        &-subtitle {
-            @include withTypo {
-                color: color(purple);
-                font-size: $font-size-base;
-            }
-        }
-    }
-
-    &__cta {
-        margin-top: 20px;
-    }
-}
