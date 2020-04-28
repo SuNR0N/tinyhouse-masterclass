@@ -17,8 +17,7 @@ export const Stripe = {
                 application_fee_amount: Math.round(amount * 0.05),
             },
             {
-                /* eslint-disable-next-line @typescript-eslint/camelcase */
-                stripe_account: stripeAccount,
+                stripeAccount,
             }
         );
 

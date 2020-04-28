@@ -9,6 +9,8 @@ import { Listing as ListingData, ListingVariables } from '../../core/graphql/que
 import { PageSkeleton, ErrorBanner } from '../../components';
 import { ListingDetails, ListingBookings, ListingCreateBooking, ListingCreateBookingModal } from './components';
 import { Viewer } from '../../core/models/viewer';
+import { useScrollToTop } from '../../core/hooks/use-scroll-to-top';
+import './listing.scss';
 
 const { Content } = Layout;
 
@@ -23,6 +25,8 @@ interface Props extends RouteComponentProps<MathchParams> {
 const PAGE_LIMIT = 3;
 
 export const Listing: FC<Props> = ({ match, viewer }) => {
+    useScrollToTop();
+
     const [bookingsPage, setBookingsPage] = useState(1);
     const [checkInDate, setCheckInDate] = useState<Moment | null>(null);
     const [checkOutDate, setCheckOutDate] = useState<Moment | null>(null);
@@ -91,7 +95,7 @@ export const Listing: FC<Props> = ({ match, viewer }) => {
         ) : null;
 
     return (
-        <Content className="listings">
+        <Content className="listing">
             <Row gutter={24} justify="space-between">
                 <Col xs={24} lg={14}>
                     {listingDetailsElement}

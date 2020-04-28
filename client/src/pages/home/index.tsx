@@ -11,6 +11,7 @@ import sanFranciscoImage from '../../assets/san-francisco.jpg';
 import cancunImage from '../../assets/cancun.jpg';
 import { AppRoute } from '../../core/config/app-route';
 import { LISTINGS } from '../../core/graphql/queries';
+import { useScrollToTop } from '../../core/hooks/use-scroll-to-top';
 import './home.scss';
 
 const { Content } = Layout;
@@ -20,6 +21,8 @@ const PAGE_LIMIT = 4;
 const PAGE_NUMBER = 1;
 
 export const Home: FC<RouteComponentProps> = ({ history }) => {
+    useScrollToTop();
+
     const { loading, data } = useQuery<ListingsData, ListingsVariables>(LISTINGS, {
         variables: { filter: ListingsFilter.PRICE_HIGH_TO_LOW, limit: PAGE_LIMIT, page: PAGE_NUMBER },
         fetchPolicy: 'cache-and-network',

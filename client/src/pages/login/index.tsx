@@ -12,6 +12,7 @@ import googleLogo from '../../assets/google_logo.png';
 import { Viewer } from '../../core/models/viewer';
 import { LOG_IN } from '../../core/graphql/mutations';
 import { AppRoute } from '../../core/config/app-route';
+import { useScrollToTop } from '../../core/hooks/use-scroll-to-top';
 import './log-in.scss';
 
 const { Content } = Layout;
@@ -22,6 +23,8 @@ interface Props {
 }
 
 export const Login: FC<Props> = ({ setViewer }) => {
+    useScrollToTop();
+
     const client = useApolloClient();
     const [logIn, { data: logInData, loading: logInLoading, error: logInError }] = useMutation<LogInData, LogInVariables>(LOG_IN, {
         onCompleted: (data) => {

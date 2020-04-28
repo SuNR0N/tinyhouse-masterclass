@@ -11,6 +11,7 @@ import { Viewer } from '../../core/models/viewer';
 import { AppRoute } from '../../core/config/app-route';
 import { ListingType } from '../../core/graphql/globalTypes';
 import { displayErrorMessage, displaySuccessNotification, resolveRoute } from '../../core/utils';
+import { useScrollToTop } from '../../core/hooks/use-scroll-to-top';
 import * as styles from './host.scss';
 
 const { Content } = Layout;
@@ -43,6 +44,8 @@ const getBase64Value = (img: File | Blob, callback: (imageBase64Value: string) =
 };
 
 export const Host: FC<Props> = ({ viewer }) => {
+    useScrollToTop();
+
     const [imageLoading, setImageLoading] = useState(false);
     const [imageBase64Value, setImageBase64Value] = useState<string | null>(null);
     const [hostListing, { loading, data }] = useMutation<HostListingData, HostListingVariables>(HOST_LISTING, {

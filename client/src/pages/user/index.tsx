@@ -8,6 +8,7 @@ import { User as UserData, UserVariables } from '../../core/graphql/queries/__ge
 import { UserProfile, UserListings, UserBookings } from './components';
 import { Viewer } from '../../core/models';
 import { ErrorBanner, PageSkeleton } from '../../components';
+import { useScrollToTop } from '../../core/hooks/use-scroll-to-top';
 import './user.scss';
 
 const { Content } = Layout;
@@ -24,6 +25,8 @@ interface Props extends RouteComponentProps<MatchParams> {
 const PAGE_LIMIT = 4;
 
 export const User: FC<Props> = ({ match, setViewer, viewer }) => {
+    useScrollToTop();
+
     const [listingsPage, setListingsPage] = useState(1);
     const [bookingsPage, setBookingsPage] = useState(1);
     const { data, loading, error, refetch } = useQuery<UserData, UserVariables>(USER, {

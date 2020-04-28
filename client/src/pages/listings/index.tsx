@@ -10,6 +10,7 @@ import { LISTINGS } from '../../core/graphql/queries';
 import { AppRoute } from '../../core/config/app-route';
 import { ListingsFilters, ListingsPagination, ListingsSkeleton } from './components';
 import { ErrorBanner } from '../../components/error-banner';
+import { useScrollToTop } from '../../core/hooks/use-scroll-to-top';
 import './listings.scss';
 
 const { Content } = Layout;
@@ -22,6 +23,8 @@ interface MatchParams {
 const PAGE_LIMIT = 8;
 
 export const Listings: FC<RouteComponentProps<MatchParams>> = ({ match }) => {
+    useScrollToTop();
+
     const locationRef = useRef(match.params.location);
     const [filter, setFilter] = useState(ListingsFilter.PRICE_LOW_TO_HIGH);
     const [page, setPage] = useState(1);
