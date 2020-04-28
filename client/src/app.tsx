@@ -2,7 +2,10 @@ import React, { FC, useEffect, useRef, useState } from 'react';
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 import { useMutation } from '@apollo/react-hooks';
 import { Layout, Spin, Affix } from 'antd';
+import { Elements } from '@stripe/react-stripe-js';
+import { loadStripe } from '@stripe/stripe-js';
 
+import { Configuration } from './core/config';
 import { Viewer } from './core/models/viewer';
 import { LogIn as LogInData, LogInVariables } from './core/graphql/mutations/__generated__/LogIn';
 import { LOG_IN } from './core/graphql/mutations/log-in';
@@ -10,6 +13,9 @@ import { AppHeaderSkeleton, ErrorBanner, AppHeader } from './components';
 import { Home, Host, Listing, Listings, Login, NotFound, Stripe, User } from './pages';
 import { AppRoute } from './core/config/app-route';
 import './app.scss';
+
+const { STRIPE_PUBLISHABLE_KEY } = Configuration;
+const stripePromise = loadStripe(STRIPE_PUBLISHABLE_KEY);
 
 const initialViewer: Viewer = {
     avatar: null,
@@ -65,7 +71,15 @@ export const App: FC = () => {
                 <Switch>
                     <Route exact path={AppRoute.HOME} component={Home} />
                     <Route exact path={AppRoute.HOST} render={(props) => <Host {...props} viewer={viewer} />} />
-                    <Route exact path={AppRoute.LISTING} component={Listing} />
+                    <Route
+                        exact
+                        path={AppRoute.LISTING}
+                        render={(props) => (
+                            <Elements stripe={stripePromise}>
+                                <Listing {...props} viewer={viewer} />
+                            </Elements>
+                        )}
+                    />
                     <Route exact path={AppRoute.LISTINGS} component={Listings} />
                     <Route exact path={AppRoute.LOGIN} render={(props) => <Login {...props} setViewer={setViewer} />} />
                     <Route exact path={AppRoute.STRIPE} render={(props) => <Stripe {...props} setViewer={setViewer} viewer={viewer} />} />

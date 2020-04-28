@@ -14,7 +14,7 @@ const { Paragraph, Text, Title } = Typography;
 const { STRIPE_AUTH_URL } = Configuration;
 
 interface Props {
-    handleUserRefetch: () => void;
+    handleUserRefetch: () => Promise<void>;
     setViewer: (viewer: Viewer) => void;
     user: UserData['user'];
     viewer: Viewer;

@@ -127,19 +127,20 @@ export const listingResolvers: IResolvers = {
 
             return insertedListing;
         },
-        deleteListing: async (_root: undefined, { id }: { id: string }, { db }: { db: Database }) => {
-            const { value } = await db.listings.findOneAndDelete({
-                _id: new ObjectId(id),
-            });
+        // TODO: Make it work again
+        // deleteListing: async (_root: undefined, { id }: { id: string }, { db }: { db: Database }) => {
+        //     const { value } = await db.listings.findOneAndDelete({
+        //         _id: new ObjectId(id),
+        //     });
 
-            if (!value) {
-                throw new Error(`Failed to delete listing with id: ${id}`);
-            }
+        //     if (!value) {
+        //         throw new Error(`Failed to delete listing with id: ${id}`);
+        //     }
 
-            await db.bookings.deleteMany({ address: value.address, image: value.image, title: value.title });
+        //     await db.bookings.deleteMany({ address: value.address, image: value.image, title: value.title });
 
-            return value;
-        },
+        //     return value;
+        // },
         // TODO: Make it work again
         // favoriteListing: async (_root: undefined, { id }: { id: string }, { db }: { db: Database }) => {
         //     const listing = await db.listings.findOne({ _id: new ObjectId(id) });

@@ -28,51 +28,10 @@
         }
 
         &-cta {
-            display: block;
-            margin: 0 auto 10px;
-        }
-    }
-
-    &-modal {
-        text-align: center;
-        padding-top: 10px;
-
-        &__intro-title {
-            @include withTypo {
-                margin-top: 5px;
-
-                + h3 {
-                    @include withTypo {
-                        margin-top: 5px;
-                    }
-                }
+            &.#{$prefix}btn {
+                display: block;
+                margin: 0 auto 10px;
             }
-        }
-
-        &__charge-summary-total {
-            font-weight: $font-weight-bold;
-            font-size: $font-size-small;
-        }
-
-        &__charge-summary-stripe {
-            display: block;
-            font-size: $font-size-xxsmall;
-            padding-top: 5px;
-        }
-
-        &__stripe-card {
-            padding: 10px;
-            margin: 40px 0;
-            border: 1px solid color(gray, light);
-            box-shadow: 0 2px 4px rgba(29, 34, 108, 0.1);
-
-            &-section {
-                padding-bottom: 10px;
-            }
-        }
-
-        &__cta {
-            width: 100px;
         }
     }
 
