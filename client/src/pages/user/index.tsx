@@ -1,6 +1,6 @@
 import React, { FC, useState } from 'react';
 import { useQuery } from 'react-apollo';
-import { RouteComponentProps } from 'react-router-dom';
+import { useParams } from 'react-router-dom';
 import { Col, Layout, Row } from 'antd';
 
 import { USER } from '../../core/graphql/queries/user';
@@ -17,20 +17,22 @@ interface MatchParams {
     id: string;
 }
 
-interface Props extends RouteComponentProps<MatchParams> {
+interface Props {
     setViewer: (viewer: Viewer) => void;
     viewer: Viewer;
 }
 
 const PAGE_LIMIT = 4;
 
-export const User: FC<Props> = ({ match, setViewer, viewer }) => {
+export const User: FC<Props> = ({ setViewer, viewer }) => {
     useScrollToTop();
+
+    const { id } = useParams<MatchParams>();
 
     const [listingsPage, setListingsPage] = useState(1);
     const [bookingsPage, setBookingsPage] = useState(1);
     const { data, loading, error, refetch } = useQuery<UserData, UserVariables>(USER, {
-        variables: { id: match.params.id, bookingsPage, listingsPage, limit: PAGE_LIMIT },
+        variables: { id, bookingsPage, listingsPage, limit: PAGE_LIMIT },
         fetchPolicy: 'cache-and-network',
     });
 
@@ -50,7 +52,7 @@ export const User: FC<Props> = ({ match, setViewer, viewer }) => {
     }
 
     const user = data ? data.user : null;
-    const viewerIsUser = viewer.id === match.params.id;
+    const viewerIsUser = viewer.id === id;
 
     const userListings = user ? user.listings : null;
     const userBookings = user ? user.bookings : null;

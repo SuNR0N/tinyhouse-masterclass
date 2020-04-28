@@ -1,5 +1,5 @@
 import React, { FC } from 'react';
-import { Link, RouteComponentProps } from 'react-router-dom';
+import { Link, useHistory } from 'react-router-dom';
 import { useQuery } from '@apollo/react-hooks';
 import { Button, Col, Layout, Row, Typography } from 'antd';
 
@@ -20,8 +20,10 @@ const { Paragraph, Title } = Typography;
 const PAGE_LIMIT = 4;
 const PAGE_NUMBER = 1;
 
-export const Home: FC<RouteComponentProps> = ({ history }) => {
+export const Home: FC = () => {
     useScrollToTop();
+
+    const history = useHistory();
 
     const { loading, data } = useQuery<ListingsData, ListingsVariables>(LISTINGS, {
         variables: { filter: ListingsFilter.PRICE_HIGH_TO_LOW, limit: PAGE_LIMIT, page: PAGE_NUMBER },
