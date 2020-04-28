@@ -161,8 +161,13 @@ export const viewerResolvers: IResolvers = {
         disconnectStripe: async (_root: undefined, _args: {}, { db, req }: { db: Database; req: Request }) => {
             try {
                 let viewer = await authorize(db, req);
-                if (!viewer) {
-                    throw new Error('Viewer cannot be found');
+                if (!viewer || !viewer.walletId) {
+                    throw new Error('Viewer cannot be found or has not connected with Stripe');
+                }
+
+                const wallet = await Stripe.disconnect(viewer.walletId);
+                if (!wallet) {
+                    throw new Error('Stripe disconnect error');
                 }
 
                 const updateResponse = await db.users.findOneAndUpdate(

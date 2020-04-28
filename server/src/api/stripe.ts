@@ -2,7 +2,7 @@ import StripeLib from 'stripe';
 
 import { Configuration } from '../config';
 
-const { STRIPE_SECRET_KEY } = Configuration;
+const { STRIPE_CLIENT_ID, STRIPE_SECRET_KEY } = Configuration;
 
 const client = new StripeLib(STRIPE_SECRET_KEY, { apiVersion: '2020-03-02' });
 
@@ -30,6 +30,14 @@ export const Stripe = {
             code,
             /* eslint-disable-next-line @typescript-eslint/camelcase */
             grant_type: 'authorization_code',
+        });
+    },
+    disconnect: async (stripeUserId: string) => {
+        return await client.oauth.deauthorize({
+            /* eslint-disable @typescript-eslint/camelcase */
+            client_id: STRIPE_CLIENT_ID,
+            stripe_user_id: stripeUserId,
+            /* eslint-enable @typescript-eslint/camelcase */
         });
     },
 };

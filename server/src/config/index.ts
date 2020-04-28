@@ -22,6 +22,7 @@ interface Configuration {
     PUBLIC_URL: string;
     REQUEST_BODY_LIMIT: string;
     SECRET: string;
+    STRIPE_CLIENT_ID: string;
     STRIPE_SECRET_KEY: string;
 }
 
@@ -58,5 +59,6 @@ export const Configuration: Configuration = {
     PUBLIC_URL: process.env.PUBLIC_URL || '',
     REQUEST_BODY_LIMIT: '2mb',
     SECRET: process.env.SECRET || '',
+    STRIPE_CLIENT_ID: process.env.STRIPE_CLIENT_ID || '',
     STRIPE_SECRET_KEY: process.env.STRIPE_SECRET_KEY || '',
 };
