@@ -18,7 +18,7 @@
         }
     }
 
-    .#{$prefix}list-pagination {
+    .#{$prefix}-list-pagination {
         padding-bottom: 20px;
     }
 
@@ -35,7 +35,8 @@
         }
     }
 
-    &__booking-stars {
-        font-size: $font-size-xsmall;
-    }
+    // TODO: Implement feature
+    // &__booking-stars {
+    //     font-size: $font-size-xsmall;
+    // }
 }

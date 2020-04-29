@@ -79,7 +79,7 @@ export const Listings: FC = () => {
                 />
             </>
         ) : (
-            <div>
+            <div className="listings--none">
                 <Paragraph>
                     It appears that no listings have yet been created for <Text mark>{listingsRegion}</Text>
                 </Paragraph>

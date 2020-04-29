@@ -5,8 +5,8 @@
     padding: 10px 0;
     background: color(white);
 
-    .#{$prefix}select-selection--single {
-        .#{$prefix}select-selection__rendered {
+    .#{$prefix}-select-selection--single {
+        .#{$prefix}-select-selection__rendered {
             margin-right: 30px;
         }
     }

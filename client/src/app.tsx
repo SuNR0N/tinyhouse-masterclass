@@ -63,9 +63,9 @@ export const App: FC = () => {
 
     return (
         <Router>
-            <Layout id="app">
+            <Layout className="app">
                 {logInErrorBannerElement}
-                <Affix offsetTop={0}>
+                <Affix className="app__affix-header" offsetTop={0}>
                     <AppHeader viewer={viewer} setViewer={setViewer} />
                 </Affix>
                 <Switch>

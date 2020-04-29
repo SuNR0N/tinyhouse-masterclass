@@ -2,10 +2,6 @@
 @import '../../styles/_functions';
 @import '../../styles/_mixins';
 
-:export {
-    iconColor: color(blue, light);
-}
-
 .listing-card {
     &__cover-img {
         width: 100%;
@@ -14,11 +10,12 @@
         background-position: 50%;
     }
 
-    &__rating-tag {
-        position: absolute;
-        top: 5px;
-        right: 0;
-    }
+    // TODO: Implement feature
+    // &__rating-tag {
+    //     position: absolute;
+    //     top: 5px;
+    //     right: 0;
+    // }
 
     &__description {
         padding-bottom: 20px;
@@ -44,17 +41,19 @@
 
     &__dimensions {
         span {
-            color: color(gray);
-            padding-right: 10px;
             font-size: $font-size-xsmall;
+
+            @include withTypo {
+                color: color(gray);
+            }
+
+            @include withIcon {
+                padding-right: 10px;
+            }
         }
 
         &--guests {
             float: right;
-
-            span:last-of-type {
-                padding-right: 0;
-            }
 
             @media (max-width: 75em) {
                 float: none;

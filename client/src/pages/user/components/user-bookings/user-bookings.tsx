@@ -50,7 +50,7 @@ export const UserBookings: FC<Props> = ({ bookingsPage, limit, setBookingsPage, 
                 );
 
                 return (
-                    <List.Item>
+                    <List.Item className="user-bookings__booking-item">
                         {bookingHistory}
                         <ListingCard listing={userBooking.listing} />
                     </List.Item>

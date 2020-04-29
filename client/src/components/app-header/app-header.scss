@@ -3,7 +3,7 @@
 @import '../../styles/_mixins';
 
 .app-header {
-    @include extend(layout-header) {
+    @include extend(-layout-header) {
         background: color(white);
         padding: 0;
     }
@@ -32,7 +32,7 @@
         flex-grow: 1;
         padding-right: 10px;
 
-        .#{$prefix}input-group {
+        .#{$prefix}-input-group {
             border: 0;
             width: 100%;
             max-width: 460px;

@@ -6,7 +6,7 @@ import { EnvironmentOutlined } from '@ant-design/icons';
 import { Listing as ListingData } from '../../../../core/graphql/queries/__generated__/Listing';
 import { resolveRoute } from '../../../../core/utils';
 import { AppRoute } from '../../../../core/config/app-route';
-import * as styles from './listing-details.scss';
+import './listing-details.scss';
 
 const { Paragraph, Title } = Typography;
 
@@ -24,7 +24,7 @@ export const ListingDetails: FC<Props> = ({ listing }) => {
             <div className="listing-details__information">
                 <Paragraph type="secondary" ellipsis className="listing-details__city-address">
                     <Link to={resolveRoute(AppRoute.LISTINGS, city)}>
-                        <EnvironmentOutlined style={{ color: styles.iconColor }} /> {city}
+                        <EnvironmentOutlined className="icon--primary" /> {city}
                     </Link>
                     <Divider type="vertical" />
                     {address}

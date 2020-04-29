@@ -1,13 +1,14 @@
 @import './styles/_variables';
 @import './styles/_functions';
 
-#app {
-    position: relative;
-    background: color(white);
-    min-height: 100vh;
-}
-
 .app {
+    position: relative;
+
+    &.#{$prefix}-layout {
+        background: color(white);
+        min-height: 100vh;
+    }
+
     &-skeleton {
         height: 100%;
         background: color(white);
@@ -22,19 +23,7 @@
         }
     }
 
-    &__affix {
-        &-header {
-            z-index: 99;
-        }
-
-        &-footer {
-            position: absolute;
-            bottom: 10px;
-            right: 10px;
-
-            @media (max-width: 36em) {
-                display: none;
-            }
-        }
+    &__affix-header {
+        z-index: 99;
     }
 }

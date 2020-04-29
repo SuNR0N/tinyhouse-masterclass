@@ -7,11 +7,11 @@ import { Listings as ListingsData, ListingsVariables } from '../../core/graphql/
 import { ListingsFilter } from '../../core/graphql/globalTypes';
 import { HomeHero, HomeListings, HomeListingsSkeleton } from './components';
 import { displayErrorMessage, resolveRoute } from '../../core/utils';
-import sanFranciscoImage from '../../assets/san-francisco.jpg';
-import cancunImage from '../../assets/cancun.jpg';
 import { AppRoute } from '../../core/config/app-route';
 import { LISTINGS } from '../../core/graphql/queries';
 import { useScrollToTop } from '../../core/hooks/use-scroll-to-top';
+import sanFranciscoImage from '../../assets/san-francisco.jpg';
+import cancunImage from '../../assets/cancun.jpg';
 import './home.scss';
 
 const { Content } = Layout;

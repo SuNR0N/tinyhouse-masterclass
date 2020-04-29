@@ -5,7 +5,7 @@ import listings from './json/listings.json';
 import users from './json/users.json';
 
 import { connectDatabase } from '../src/database';
-import { Database, ListingType } from '../src/models';
+import { Database, ListingType } from '../src/types';
 
 const log = (...args: string[]) => {
     console.log('[seed]:', ...args);

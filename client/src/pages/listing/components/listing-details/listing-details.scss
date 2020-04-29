@@ -40,12 +40,13 @@
         }
     }
 
-    &__ratings {
-        @include withTypo {
-            margin: 5px 0;
-            font-size: $font-size-xsmall;
-        }
-    }
+    // TODO: Implement feature
+    // &__ratings {
+    //     @include withTypo {
+    //         margin: 5px 0;
+    //         font-size: $font-size-xsmall;
+    //     }
+    // }
 
     &__host-name {
         font-family: $font-family, cursive;
@@ -64,29 +65,13 @@
         padding-bottom: 20px;
     }
 
-    &__amenities-row {
-        padding: 5px 0;
+    // TODO: Implement feature
+    // &__amenities-row {
+    //     padding: 5px 0;
 
-        i,
-        span {
-            padding: 0 2.5px;
-        }
-    }
-
-    &__booking-item {
-        margin: 20px 0;
-    }
-
-    &__booking-history {
-        margin-bottom: 20px;
-
-        > div {
-            font-size: $font-size-xsmall;
-            margin-bottom: 5px;
-        }
-    }
-
-    &__booking-stars {
-        font-size: $font-size-xsmall;
-    }
+    //     i,
+    //     span {
+    //         padding: 0 2.5px;
+    //     }
+    // }
 }

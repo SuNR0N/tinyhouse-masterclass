@@ -1,7 +1,6 @@
 import React, { FC } from 'react';
 import { Card, List, Skeleton } from 'antd';
 
-import listingLoadingCardCover from '../../../../assets/listing-loading-card-cover.png';
 import './listings-skeleton.scss';
 
 export const ListingsSkeleton: FC = () => {
@@ -20,15 +19,7 @@ export const ListingsSkeleton: FC = () => {
                 dataSource={emptyData}
                 renderItem={() => (
                     <List.Item>
-                        <Card
-                            cover={
-                                <div
-                                    style={{ backgroundImage: `url(${listingLoadingCardCover})` }}
-                                    className="listings-skeleton__card-cover-img"
-                                />
-                            }
-                            loading
-                        />
+                        <Card className="listings-skeleton__card" cover={<div className="listings-skeleton__card-cover-img" />} loading />
                     </List.Item>
                 )}
             />

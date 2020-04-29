@@ -12,7 +12,7 @@ import { AppRoute } from '../../core/config/app-route';
 import { ListingType } from '../../core/graphql/globalTypes';
 import { displayErrorMessage, displaySuccessNotification, resolveRoute } from '../../core/utils';
 import { useScrollToTop } from '../../core/hooks/use-scroll-to-top';
-import * as styles from './host.scss';
+import './host.scss';
 
 const { Content } = Layout;
 const { Text, Title } = Typography;
@@ -157,11 +157,11 @@ export const Host: FC<Props> = ({ viewer }) => {
                 <Item name="type" rules={[{ required: true, message: 'Please select a home type!' }]} label="Home Type">
                     <Radio.Group>
                         <Radio.Button value={ListingType.APARTMENT}>
-                            <BankOutlined style={{ color: styles.iconColor }} />
+                            <BankOutlined className="icon--primary" />
                             <span>Apartment</span>
                         </Radio.Button>
                         <Radio.Button value={ListingType.HOUSE}>
-                            <HomeOutlined style={{ color: styles.iconColor }} />
+                            <HomeOutlined className="icon--primary" />
                             <span>House</span>
                         </Radio.Button>
                     </Radio.Group>

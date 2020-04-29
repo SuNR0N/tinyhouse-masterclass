@@ -50,7 +50,7 @@ export const Listing: FC<Props> = ({ viewer }) => {
 
     if (loading || error) {
         return (
-            <Content className="listings">
+            <Content className="listing">
                 {error && <ErrorBanner description="This listing may not exist or we've encountered an error. Please try again soon!" />}
                 <PageSkeleton />
             </Content>

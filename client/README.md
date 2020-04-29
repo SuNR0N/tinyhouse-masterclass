@@ -62,17 +62,15 @@ Generates the _GraphQL_ schema of the server project and based on that the _Type
 
 ## TODO
 
--   [ ] -   Replace icons
 -   [ ] -   Enhance styles (units, etc.)
 -   [ ] -   Add unit tests
 -   [ ] -   Add linting and prettier
--   [ ] -   Modularize
 -   [ ] -   Create ViewerContext
 -   [ ] -   Generate JS classnames from SCSS
 -   [ ] -   Create constants for texts
--   [ ] -   Remove inline styles
+-   [x] -   Remove inline styles
 -   [x] -   Fix programmatic clearing of datepickers
--   [ ] -   Remove unused styles
+-   [x] -   Remove unused styles
 -   [ ] -   Update README
 -   [x] -   Rename component files from index to their actual names
 -   [x] -   Use router hooks

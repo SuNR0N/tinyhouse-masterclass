@@ -6,7 +6,7 @@ import { UserOutlined } from '@ant-design/icons';
 import { Listing } from '../../core/models/listing';
 import { formatPrice, resolveRoute } from '../../core/utils';
 import { AppRoute } from '../../core/config/app-route';
-import * as styles from './listing-card.scss';
+import './listing-card.scss';
 
 const { Text, Title } = Typography;
 
@@ -34,7 +34,7 @@ export const ListingCard: FC<Props> = ({ listing }) => {
                         </Text>
                     </div>
                     <div className="listing-card__dimensions listing-card__dimensions--guests">
-                        <UserOutlined style={{ color: styles.iconColor }} />
+                        <UserOutlined className="icon--primary" />
                         <Text>{numOfGuests} guests</Text>
                     </div>
                 </div>
