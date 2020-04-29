@@ -7,7 +7,8 @@ import { CreateBookingsArgs } from './types';
 import { authorize } from '../../../utils';
 import { Stripe } from '../../../api/stripe';
 
-const ONE_DAY_IN_MS = 60 * 60 * 24 * 1000;
+const MILLISECONDS_PER_DAY = 60 * 60 * 24 * 1000;
+const MAX_DAYS_AHEAD = 90;
 
 const resolveBookingsIndex = (bookingsIndex: BookingsIndex, checkInDate: string, checkOutDate: string) => {
     const checkOut = new Date(checkOutDate);
@@ -34,7 +35,7 @@ const resolveBookingsIndex = (bookingsIndex: BookingsIndex, checkInDate: string,
             throw new Error("Selected dates can't overlap dates that have already been booked");
         }
 
-        dateCursor = new Date(dateCursor.getTime() + ONE_DAY_IN_MS);
+        dateCursor = new Date(dateCursor.getTime() + MILLISECONDS_PER_DAY);
     }
 
     return newBookingsIndex;
@@ -65,8 +66,17 @@ export const bookingResolvers: IResolvers = {
                     throw new Error("Viewer can't book own listing");
                 }
 
+                const now = Date.now();
                 const checkInDate = new Date(checkIn);
                 const checkOutDate = new Date(checkOut);
+
+                if (checkInDate.getTime() > now + MAX_DAYS_AHEAD * MILLISECONDS_PER_DAY) {
+                    throw new Error(`Check in date can't be more than ${MAX_DAYS_AHEAD} days from today`);
+                }
+
+                if (checkOutDate.getTime() > now + MAX_DAYS_AHEAD * MILLISECONDS_PER_DAY) {
+                    throw new Error(`Check out date can't be more than ${MAX_DAYS_AHEAD} days from today`);
+                }
 
                 if (checkOutDate < checkInDate) {
                     throw new Error("Check out date can't be before check in date");
@@ -74,7 +84,7 @@ export const bookingResolvers: IResolvers = {
 
                 const bookingsIndex = resolveBookingsIndex(listing.bookingsIndex, checkIn, checkOut);
 
-                const totalPrice = listing.price * ((checkOutDate.getTime() - checkInDate.getTime()) / ONE_DAY_IN_MS + 1);
+                const totalPrice = listing.price * ((checkOutDate.getTime() - checkInDate.getTime()) / MILLISECONDS_PER_DAY + 1);
 
                 const host = await db.users.findOne({ _id: listing.host });
                 if (!host || !host.walletId) {

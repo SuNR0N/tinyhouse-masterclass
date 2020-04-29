@@ -1,5 +1,5 @@
 import React, { FC } from 'react';
-import { Button, Card, DatePicker, Divider, Typography } from 'antd';
+import { Button, Card, DatePicker, Divider, Tooltip, Typography } from 'antd';
 import moment, { Moment } from 'moment';
 
 import { Listing as ListingData } from '../../../../core/graphql/queries/__generated__/Listing';
@@ -22,6 +22,7 @@ interface Props {
 }
 
 const DATE_PICKER_FORMAT = 'YYYY/MM/DD';
+const MAX_DAYS_AHEAD = 90;
 
 export const ListingCreateBooking: FC<Props> = ({
     bookingsIndex,
@@ -51,8 +52,9 @@ export const ListingCreateBooking: FC<Props> = ({
     const disabledDate = (currentDate?: Moment) => {
         if (currentDate) {
             const dateIsBeforeEndOfDay = currentDate.isBefore(moment().endOf('day'));
+            const dateIsMoreThanMaxDaysAhead = moment(currentDate).isAfter(moment().endOf('day').add(MAX_DAYS_AHEAD, 'days'));
 
-            return dateIsBeforeEndOfDay || dateIsBooked(currentDate);
+            return dateIsBeforeEndOfDay || dateIsMoreThanMaxDaysAhead || dateIsBooked(currentDate);
         } else {
             return false;
         }
@@ -110,24 +112,45 @@ export const ListingCreateBooking: FC<Props> = ({
                     <div className="listing-create-booking__card-date-picker">
                         <Paragraph strong>Check In</Paragraph>
                         <DatePicker
-                            value={checkInDate ? checkInDate : undefined}
+                            value={checkInDate}
                             format={DATE_PICKER_FORMAT}
                             showToday={false}
                             disabled={checkInInputDisabled}
                             disabledDate={disabledDate}
                             onChange={(dateValue) => setCheckInDate(dateValue)}
                             onOpenChange={() => setCheckOutDate(null)}
+                            renderExtraFooter={() => (
+                                <Text type="secondary" className="ant-picker-footer-text">
+                                    You can only book a listing within {MAX_DAYS_AHEAD} days from today.
+                                </Text>
+                            )}
                         />
                     </div>
                     <div className="listing-create-booking__card-date-picker">
                         <Paragraph strong>Check Out</Paragraph>
                         <DatePicker
-                            value={checkOutDate ? checkOutDate : undefined}
+                            value={checkOutDate}
                             format={DATE_PICKER_FORMAT}
                             showToday={false}
                             disabled={checkOutInputDisabled}
                             disabledDate={disabledDate}
                             onChange={(dateValue) => verifyAndSetCheckOutDate(dateValue)}
+                            dateRender={(current) => {
+                                if (moment(current).isSame(checkInDate ? checkInDate : undefined, 'days')) {
+                                    return (
+                                        <Tooltip title="Check in date">
+                                            <div className="ant-picker-cell-inner ant-picker-cell-inner__check-in">{current.date()}</div>
+                                        </Tooltip>
+                                    );
+                                } else {
+                                    return <div className="ant-picker-cell-inner">{current.date()}</div>;
+                                }
+                            }}
+                            renderExtraFooter={() => (
+                                <Text type="secondary" className="ant-picker-footer-text">
+                                    Check-out cannot be before check-in.
+                                </Text>
+                            )}
                         />
                     </div>
                 </div>
