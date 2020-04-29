@@ -1,7 +1,7 @@
 import { IResolvers } from 'apollo-server-express';
 import { Request } from 'express';
 
-import { Database, User, Booking, Listing } from '../../../models';
+import { Database, User, Booking, Listing } from '../../../types';
 import { UserArgs } from './types';
 import { PaginatedListData, PaginationArgs } from '../types';
 import { authorize } from '../../../utils';

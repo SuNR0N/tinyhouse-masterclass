@@ -1,5 +1,5 @@
 import { PaginationArgs, PaginatedListData } from '../types';
-import { ListingType, Listing } from '../../../models';
+import { ListingType, Listing } from '../../../types';
 
 export enum ListingsFilter {
     PRICE_LOW_TO_HIGH = 'PRICE_LOW_TO_HIGH',

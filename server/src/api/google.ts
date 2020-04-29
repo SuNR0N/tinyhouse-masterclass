@@ -2,7 +2,7 @@ import { google } from 'googleapis';
 import { createClient, AddressComponent } from '@google/maps';
 
 import { Configuration } from '../config';
-import { Address } from '../models';
+import { Address } from '../types';
 
 const { GOOGLE_CLIENT_ID, GOOGLE_CLIENT_SECRET, GOOGLE_GEOCODE_KEY, PUBLIC_URL } = Configuration;
 

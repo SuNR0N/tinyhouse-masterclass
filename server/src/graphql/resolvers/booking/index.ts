@@ -2,7 +2,7 @@ import { IResolvers } from 'apollo-server-express';
 import { Request } from 'express';
 import { ObjectId } from 'mongodb';
 
-import { BookingsIndex, Database, Booking } from '../../../models';
+import { BookingsIndex, Database, Booking } from '../../../types';
 import { CreateBookingsArgs } from './types';
 import { authorize } from '../../../utils';
 import { Stripe } from '../../../api/stripe';

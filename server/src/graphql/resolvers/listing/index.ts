@@ -2,7 +2,7 @@ import { IResolvers } from 'apollo-server-express';
 import { ObjectId } from 'mongodb';
 import { Request } from 'express';
 
-import { Database, Listing, Booking, ListingType } from '../../../models';
+import { Database, Listing, Booking, ListingType } from '../../../types';
 import { ListingArgs, ListingsArgs, ListingsFilter, ListingsQuery, ListingsData, HostListingInput, HostListingsArgs } from './types';
 import { authorize } from '../../../utils';
 import { PaginatedListData, PaginationArgs } from '../types';

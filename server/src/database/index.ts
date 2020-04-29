@@ -1,7 +1,7 @@
 import { MongoClient } from 'mongodb';
 
 import { Configuration } from '../config';
-import { Database } from '../models/database';
+import { Database } from '../types/database';
 
 const { DB_CLUSTER, DB_COLLECTIONS, DB_PASSWORD, DB_USER, DB_NAME } = Configuration;
 const DB_URI = `mongodb+srv://${DB_USER}:${DB_PASSWORD}@${DB_CLUSTER}.mongodb.net/test?retryWrites=true&w=majority`;

@@ -5,7 +5,7 @@ import { IResolvers } from 'apollo-server-express';
 import { Configuration } from '../../../config';
 import { Google, Stripe } from '../../../api';
 import { LogInArgs, ConnectStripeArgs } from './types';
-import { Database, Viewer } from '../../../models';
+import { Database, Viewer } from '../../../types';
 import { authorize } from '../../../utils';
 
 const { ENVIRONMENT } = Configuration;
