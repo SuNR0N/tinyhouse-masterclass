@@ -63,7 +63,7 @@ Generates the _GraphQL_ schema of the server project and based on that the _Type
 ## TODO
 
 -   [ ] -   Replace icons
--   [ ] -   Enhance styles (units, variables, etc.)
+-   [ ] -   Enhance styles (units, etc.)
 -   [ ] -   Add unit tests
 -   [ ] -   Add linting and prettier
 -   [ ] -   Modularize
@@ -74,7 +74,7 @@ Generates the _GraphQL_ schema of the server project and based on that the _Type
 -   [x] -   Fix programmatic clearing of datepickers
 -   [ ] -   Remove unused styles
 -   [ ] -   Update README
--   [ ] -   Rename component files from index to their actual names
+-   [x] -   Rename component files from index to their actual names
 -   [x] -   Use router hooks
 -   [ ] -   Implement usePrevious hook
 -   [ ] -   Externalise utility functions

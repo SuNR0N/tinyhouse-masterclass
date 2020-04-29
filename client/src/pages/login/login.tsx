@@ -13,7 +13,7 @@ import { Viewer } from '../../core/models/viewer';
 import { LOG_IN } from '../../core/graphql/mutations';
 import { AppRoute } from '../../core/config/app-route';
 import { useScrollToTop } from '../../core/hooks/use-scroll-to-top';
-import './log-in.scss';
+import './login.scss';
 
 const { Content } = Layout;
 const { Text, Title } = Typography;
@@ -68,7 +68,7 @@ export const Login: FC<Props> = ({ setViewer }) => {
 
     if (logInLoading) {
         return (
-            <Content className="log-in">
+            <Content className="login">
                 <Spin size="large" tip="Logging you in..." />
             </Content>
         );
@@ -84,23 +84,23 @@ export const Login: FC<Props> = ({ setViewer }) => {
     ) : null;
 
     return (
-        <Content className="log-in">
+        <Content className="login">
             {logInErrorBannerElement}
-            <Card className="log-in-card">
-                <div className="log-in-card__intro">
-                    <Title level={3} className="log-in-card__intro-title">
+            <Card className="login-card">
+                <div className="login-card__intro">
+                    <Title level={3} className="login-card__intro-title">
                         <span role="img" aria-label="wave">
                             👋
                         </span>
                     </Title>
-                    <Title level={3} className="log-in-card__intro-title">
+                    <Title level={3} className="login-card__intro-title">
                         Log in to TinyHouse!
                     </Title>
                     <Text>Sign in with Google to start booking available rentals!</Text>
                 </div>
-                <button className="log-in-card__google-button" onClick={handleAuthorize}>
-                    <img src={googleLogo} alt="Google Logo" className="log-in-card__google-button-logo" />
-                    <span className="log-in-card__google-button-text">Sign in with Google</span>
+                <button className="login-card__google-button" onClick={handleAuthorize}>
+                    <img src={googleLogo} alt="Google Logo" className="login-card__google-button-logo" />
+                    <span className="login-card__google-button-text">Sign in with Google</span>
                 </button>
                 <Text type="secondary">
                     Note: By signing in, you'll be redirected to the Google consent form to sign in with your Google account.
