@@ -57,3 +57,4 @@ Runs unit test suites with coverage report for the source code.
 
 -   [ ] -   Add unit tests
 -   [ ] -   Add dockerized MongoDB
+-   [ ] -   Update README
