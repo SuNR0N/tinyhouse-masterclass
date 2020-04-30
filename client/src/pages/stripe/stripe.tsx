@@ -7,20 +7,16 @@ import { CONNECT_STRIPE } from '../../core/graphql/mutations/connect-stripe';
 import { ConnectStripe as ConnectStripeData, ConnectStripeVariables } from '../../core/graphql/mutations/__generated__/ConnectStripe';
 import { resolveRoute, displaySuccessNotification } from '../../core/utils';
 import { AppRoute } from '../../core/config/app-route';
-import { Viewer } from '../../core/models/viewer';
 import { useScrollToTop } from '../../core/hooks/use-scroll-to-top';
+import { useViewerContext } from '../../core/contexts/viewer-context';
 import './stripe.scss';
 
 const { Content } = Layout;
 
-interface Props {
-    viewer: Viewer;
-    setViewer: (viewer: Viewer) => void;
-}
-
-export const Stripe: FC<Props> = ({ setViewer, viewer }) => {
+export const Stripe: FC = () => {
     useScrollToTop();
 
+    const { viewer, setViewer } = useViewerContext();
     const history = useHistory();
     const [connectStripe, { data, loading, error }] = useMutation<ConnectStripeData, ConnectStripeVariables>(CONNECT_STRIPE, {
         onCompleted: (data) => {

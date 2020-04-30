@@ -12,6 +12,7 @@ import { LOG_IN } from './core/graphql/mutations/log-in';
 import { AppHeaderSkeleton, ErrorBanner, AppHeader } from './components';
 import { Home, Host, Listing, Listings, Login, NotFound, Stripe, User } from './pages';
 import { AppRoute } from './core/config/app-route';
+import { ViewerContextProvider } from './core/contexts/viewer-context';
 import './app.scss';
 
 const { STRIPE_PUBLISHABLE_KEY } = Configuration;
@@ -62,31 +63,33 @@ export const App: FC = () => {
     ) : null;
 
     return (
-        <Router>
-            <Layout className="app">
-                {logInErrorBannerElement}
-                <Affix className="app__affix-header" offsetTop={0}>
-                    <AppHeader viewer={viewer} setViewer={setViewer} />
-                </Affix>
-                <Switch>
-                    <Route exact path={AppRoute.HOME} component={Home} />
-                    <Route exact path={AppRoute.HOST} render={(props) => <Host {...props} viewer={viewer} />} />
-                    <Route
-                        exact
-                        path={AppRoute.LISTING}
-                        render={(props) => (
-                            <Elements stripe={stripePromise}>
-                                <Listing {...props} viewer={viewer} />
-                            </Elements>
-                        )}
-                    />
-                    <Route exact path={AppRoute.LISTINGS} component={Listings} />
-                    <Route exact path={AppRoute.LOGIN} render={(props) => <Login {...props} setViewer={setViewer} />} />
-                    <Route exact path={AppRoute.STRIPE} render={(props) => <Stripe {...props} setViewer={setViewer} viewer={viewer} />} />
-                    <Route exact path={AppRoute.USER} render={(props) => <User {...props} setViewer={setViewer} viewer={viewer} />} />
-                    <Route component={NotFound} />
-                </Switch>
-            </Layout>
-        </Router>
+        <ViewerContextProvider value={{ viewer, setViewer }}>
+            <Router>
+                <Layout className="app">
+                    {logInErrorBannerElement}
+                    <Affix className="app__affix-header" offsetTop={0}>
+                        <AppHeader />
+                    </Affix>
+                    <Switch>
+                        <Route exact path={AppRoute.HOME} component={Home} />
+                        <Route exact path={AppRoute.HOST} component={Host} />
+                        <Route
+                            exact
+                            path={AppRoute.LISTING}
+                            render={() => (
+                                <Elements stripe={stripePromise}>
+                                    <Listing />
+                                </Elements>
+                            )}
+                        />
+                        <Route exact path={AppRoute.LISTINGS} component={Listings} />
+                        <Route exact path={AppRoute.LOGIN} component={Login} />} />
+                        <Route exact path={AppRoute.STRIPE} component={Stripe} />
+                        <Route exact path={AppRoute.USER} component={User} />
+                        <Route component={NotFound} />
+                    </Switch>
+                </Layout>
+            </Router>
+        </ViewerContextProvider>
     );
 };

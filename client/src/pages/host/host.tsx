@@ -7,20 +7,16 @@ import { BankOutlined, HomeOutlined, LoadingOutlined, PlusOutlined } from '@ant-
 
 import { HOST_LISTING } from '../../core/graphql/mutations/host-listing';
 import { HostListing as HostListingData, HostListingVariables } from '../../core/graphql/mutations/__generated__/HostListing';
-import { Viewer } from '../../core/models/viewer';
 import { AppRoute } from '../../core/config/app-route';
 import { ListingType } from '../../core/graphql/globalTypes';
 import { displayErrorMessage, displaySuccessNotification, getBase64Value, resolveRoute } from '../../core/utils';
 import { useScrollToTop } from '../../core/hooks/use-scroll-to-top';
+import { useViewerContext } from '../../core/contexts/viewer-context';
 import './host.scss';
 
 const { Content } = Layout;
 const { Text, Title } = Typography;
 const { Item } = Form;
-
-interface Props {
-    viewer: Viewer;
-}
 
 interface FormValues {
     address: string;
@@ -35,9 +31,10 @@ interface FormValues {
     type: ListingType;
 }
 
-export const Host: FC<Props> = ({ viewer }) => {
+export const Host: FC = () => {
     useScrollToTop();
 
+    const { viewer } = useViewerContext();
     const [imageLoading, setImageLoading] = useState(false);
     const [imageBase64Value, setImageBase64Value] = useState<string | null>(null);
     const [hostListing, { loading, data }] = useMutation<HostListingData, HostListingVariables>(HOST_LISTING, {

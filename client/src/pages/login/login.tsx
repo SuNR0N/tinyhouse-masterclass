@@ -9,22 +9,19 @@ import { AUTH_URL } from '../../core/graphql/queries';
 import { AuthUrl as AuthUrlData } from '../../core/graphql/queries/__generated__/AuthUrl';
 import { LogIn as LogInData, LogInVariables } from '../../core/graphql/mutations/__generated__/LogIn';
 import googleLogo from '../../assets/google_logo.png';
-import { Viewer } from '../../core/models/viewer';
 import { LOG_IN } from '../../core/graphql/mutations';
 import { AppRoute } from '../../core/config/app-route';
 import { useScrollToTop } from '../../core/hooks/use-scroll-to-top';
+import { useViewerContext } from '../../core/contexts/viewer-context';
 import './login.scss';
 
 const { Content } = Layout;
 const { Text, Title } = Typography;
 
-interface Props {
-    setViewer: (viewer: Viewer) => void;
-}
-
-export const Login: FC<Props> = ({ setViewer }) => {
+export const Login: FC = () => {
     useScrollToTop();
 
+    const { setViewer } = useViewerContext();
     const client = useApolloClient();
     const [logIn, { data: logInData, loading: logInLoading, error: logInError }] = useMutation<LogInData, LogInVariables>(LOG_IN, {
         onCompleted: (data) => {

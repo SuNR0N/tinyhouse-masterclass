@@ -6,9 +6,9 @@ import { Col, Layout, Row } from 'antd';
 import { USER } from '../../core/graphql/queries/user';
 import { User as UserData, UserVariables } from '../../core/graphql/queries/__generated__/User';
 import { UserProfile, UserListings, UserBookings } from './components';
-import { Viewer } from '../../core/models';
 import { ErrorBanner, PageSkeleton } from '../../components';
 import { useScrollToTop } from '../../core/hooks/use-scroll-to-top';
+import { useViewerContext } from '../../core/contexts/viewer-context';
 import './user.scss';
 
 const { Content } = Layout;
@@ -17,18 +17,14 @@ interface MatchParams {
     id: string;
 }
 
-interface Props {
-    setViewer: (viewer: Viewer) => void;
-    viewer: Viewer;
-}
-
 const PAGE_LIMIT = 4;
 
-export const User: FC<Props> = ({ setViewer, viewer }) => {
+export const User: FC = () => {
     useScrollToTop();
 
     const { id } = useParams<MatchParams>();
 
+    const { viewer } = useViewerContext();
     const [listingsPage, setListingsPage] = useState(1);
     const [bookingsPage, setBookingsPage] = useState(1);
     const { data, loading, error, refetch } = useQuery<UserData, UserVariables>(USER, {
@@ -57,9 +53,7 @@ export const User: FC<Props> = ({ setViewer, viewer }) => {
     const userListings = user ? user.listings : null;
     const userBookings = user ? user.bookings : null;
 
-    const userProfileElement = user ? (
-        <UserProfile handleUserRefetch={handleUserRefetch} setViewer={setViewer} user={user} viewer={viewer} viewerIsUser={viewerIsUser} />
-    ) : null;
+    const userProfileElement = user ? <UserProfile handleUserRefetch={handleUserRefetch} user={user} viewerIsUser={viewerIsUser} /> : null;
     const userListingsElement = userListings ? (
         <UserListings userListings={userListings} listingsPage={listingsPage} limit={PAGE_LIMIT} setListingsPage={setListingsPage} />
     ) : null;

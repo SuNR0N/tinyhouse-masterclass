@@ -4,7 +4,8 @@ import moment, { Moment } from 'moment';
 
 import { Listing as ListingData } from '../../../../core/graphql/queries/__generated__/Listing';
 import { displayErrorMessage, formatPrice, isBooked } from '../../../../core/utils';
-import { BookingsIndex, Viewer } from '../../../../core/models';
+import { BookingsIndex } from '../../../../core/models';
+import { useViewerContext } from '../../../../core/contexts/viewer-context';
 import './listing-create-booking.scss';
 
 const { Paragraph, Text, Title } = Typography;
@@ -18,7 +19,6 @@ interface Props {
     setCheckInDate: (checkInDate: Moment | null) => void;
     setCheckOutDate: (checkOutDate: Moment | null) => void;
     setModalVisible: (modalVisible: boolean) => void;
-    viewer: Viewer;
 }
 
 const DATE_PICKER_FORMAT = 'YYYY/MM/DD';
@@ -33,8 +33,8 @@ export const ListingCreateBooking: FC<Props> = ({
     setCheckInDate,
     setCheckOutDate,
     setModalVisible,
-    viewer,
 }) => {
+    const { viewer } = useViewerContext();
     const bookingsIndexJSON: BookingsIndex = JSON.parse(bookingsIndex);
 
     const disabledDate = (currentDate?: Moment) => {

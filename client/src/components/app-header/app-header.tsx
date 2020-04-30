@@ -1,9 +1,8 @@
-import React, { FC, forwardRef, useEffect, useState } from 'react';
+import React, { FC, PropsWithChildren, forwardRef, useEffect, useState } from 'react';
 import { Link, useLocation, useHistory } from 'react-router-dom';
 import { Input, Layout } from 'antd';
 
 import { Menu } from './menu';
-import { Viewer } from '../../core/models/viewer';
 import { AppRoute } from '../../core/config/app-route';
 import { displayErrorMessage, resolveRoute } from '../../core/utils';
 import logo from '../../assets/tinyhouse-logo.png';
@@ -12,12 +11,7 @@ import './app-header.scss';
 const { Header } = Layout;
 const { Search } = Input;
 
-interface Props {
-    viewer: Viewer;
-    setViewer: (viewer: Viewer) => void;
-}
-
-export const AppHeader: FC<Props> = forwardRef(({ viewer, setViewer }, _ref) => {
+export const AppHeader: FC = forwardRef<{}, PropsWithChildren<{}>>(() => {
     const location = useLocation();
     const history = useHistory();
     const [search, setSearch] = useState('');
@@ -64,7 +58,7 @@ export const AppHeader: FC<Props> = forwardRef(({ viewer, setViewer }, _ref) => 
                 </div>
             </div>
             <div className="app-header__menu-section">
-                <Menu viewer={viewer} setViewer={setViewer} />
+                <Menu />
             </div>
         </Header>
     );

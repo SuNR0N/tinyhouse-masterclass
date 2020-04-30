@@ -8,7 +8,6 @@ import { LISTING } from '../../core/graphql/queries/listing';
 import { Listing as ListingData, ListingVariables } from '../../core/graphql/queries/__generated__/Listing';
 import { PageSkeleton, ErrorBanner } from '../../components';
 import { ListingDetails, ListingBookings, ListingCreateBooking, ListingCreateBookingModal } from './components';
-import { Viewer } from '../../core/models/viewer';
 import { useScrollToTop } from '../../core/hooks/use-scroll-to-top';
 import './listing.scss';
 
@@ -18,13 +17,9 @@ interface MatchParams {
     id: string;
 }
 
-interface Props {
-    viewer: Viewer;
-}
-
 const PAGE_LIMIT = 3;
 
-export const Listing: FC<Props> = ({ viewer }) => {
+export const Listing: FC = () => {
     useScrollToTop();
 
     const { id } = useParams<MatchParams>();
@@ -71,7 +66,6 @@ export const Listing: FC<Props> = ({ viewer }) => {
     ) : null;
     const listingCreateBookingElement = listing ? (
         <ListingCreateBooking
-            viewer={viewer}
             host={listing.host}
             price={listing.price}
             bookingsIndex={listing.bookingsIndex}

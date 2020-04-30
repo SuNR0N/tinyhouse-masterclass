@@ -6,19 +6,15 @@ import { HomeOutlined, LogoutOutlined, UserOutlined } from '@ant-design/icons';
 
 import { LOG_OUT } from '../../core/graphql/mutations';
 import { LogOut as LogOutData } from '../../core/graphql/mutations/__generated__/LogOut';
-import { Viewer } from '../../core/models/viewer';
 import { displaySuccessNotification, displayErrorMessage, resolveRoute } from '../../core/utils';
 import { AppRoute } from '../../core/config/app-route';
+import { useViewerContext } from '../../core/contexts/viewer-context';
 import './menu.scss';
 
 const { Item, SubMenu } = ADMenu;
 
-interface Props {
-    viewer: Viewer;
-    setViewer: (viewer: Viewer) => void;
-}
-
-export const Menu: FC<Props> = ({ viewer, setViewer }) => {
+export const Menu: FC = () => {
+    const { viewer, setViewer } = useViewerContext();
     const [logOut] = useMutation<LogOutData>(LOG_OUT, {
         onCompleted: (data) => {
             if (data && data.logOut) {

@@ -7,7 +7,7 @@ import { DISCONNECT_STRIPE } from '../../../../core/graphql/mutations/disconnect
 import { DisconnectStripe as DisconnectStripeData } from '../../../../core/graphql/mutations/__generated__/DisconnectStripe';
 import { User as UserData } from '../../../../core/graphql/queries/__generated__/User';
 import { formatPrice, displaySuccessNotification, displayErrorMessage } from '../../../../core/utils';
-import { Viewer } from '../../../../core/models';
+import { useViewerContext } from '../../../../core/contexts/viewer-context';
 import './user-profile.scss';
 
 const { Paragraph, Text, Title } = Typography;
@@ -15,13 +15,13 @@ const { STRIPE_AUTH_URL } = Configuration;
 
 interface Props {
     handleUserRefetch: () => Promise<void>;
-    setViewer: (viewer: Viewer) => void;
     user: UserData['user'];
-    viewer: Viewer;
     viewerIsUser: boolean;
 }
 
-export const UserProfile: FC<Props> = ({ handleUserRefetch, setViewer, user, viewer, viewerIsUser }) => {
+export const UserProfile: FC<Props> = ({ handleUserRefetch, user, viewerIsUser }) => {
+    const { viewer, setViewer } = useViewerContext();
+
     const [disconnectStripe, { loading }] = useMutation<DisconnectStripeData>(DISCONNECT_STRIPE, {
         onCompleted: (data) => {
             if (data && data.disconnectStripe) {
