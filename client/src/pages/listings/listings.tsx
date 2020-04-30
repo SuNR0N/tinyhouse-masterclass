@@ -90,7 +90,7 @@ export const Listings: FC = () => {
 
     const listingsRegionElement = listingsRegion ? (
         <Title level={3} className="listings__title">
-            Results for "{listingsRegion}"
+            Results for &quot;{listingsRegion}&quot;
         </Title>
     ) : null;
 

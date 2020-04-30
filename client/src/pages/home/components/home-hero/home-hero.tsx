@@ -20,7 +20,7 @@ interface Props {
 export const HomeHero: FC<Props> = ({ onSearch }) => (
     <div className="home-hero">
         <div className="home-hero__search">
-            <Title className="home-hero__title">Find a place you'll love to stay at</Title>
+            <Title className="home-hero__title">Find a place you&apos;ll love to stay at</Title>
             <Search placeholder="Search 'San Francisco'" size="large" enterButton className="home-hero__search-input" onSearch={onSearch} />
         </div>
         <Row gutter={12} className="home-hero__cards">

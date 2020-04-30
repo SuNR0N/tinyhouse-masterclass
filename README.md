@@ -13,3 +13,24 @@ For more information, see the [README](server/README.md) file of the server.
 A [TypeScript](https://www.typescriptlang.org) based [React](https://reactjs.org) application generated with [CRA](https://github.com/facebook/create-react-app) and styled with [Ant Design](https://ant.design) which uses [GraphQL](https://graphql.org) and the custom hooks of [Apollo](https://www.apollographql.com) to fetch and delete listings through the server.
 
 For more information, see the [README](client/README.md) file of the client.
+
+## Additional features to implement
+
+### Rate a listing
+
+-   Users should be able to rate a listing with stars between 1-5 that they booked at least once
+-   Users cannot rate a listing more than once
+-   Average rating should be displayed on the listing card
+
+### Delete listing
+
+-   Users should be able to delete their own listing
+-   A deleted listing should not be returned by a search
+-   When navigating to the view page of a given listing which had been deleted already then a message should be displayed
+-   Users should not be able to book a deleted listing
+
+### Favorite listings
+
+-   Users should be able to favorite/unfavorite listings
+-   Favorite listings should appear on the user's profile page in a paginated fashion
+-   Users should not be able to see each others' favorites

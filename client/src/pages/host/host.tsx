@@ -105,11 +105,11 @@ export const Host: FC = () => {
             <Content className="host">
                 <div className="host__form-header">
                     <Title level={4} className="host__form-title">
-                        You'll have to be signed in and connected with Stripe to host a listing!
+                        You&apos;ll have to be signed in and connected with Stripe to host a listing!
                     </Title>
                     <Text type="secondary">
-                        We only allow users who've signed in to our application and have connected with Stripe to host new listings. You can
-                        sign in at the <Link to={AppRoute.LOGIN}>/login</Link> page and connect with Stripe shortly after.
+                        We only allow users who&apos;ve signed in to our application and have connected with Stripe to host new listings.
+                        You can sign in at the <Link to={AppRoute.LOGIN}>/login</Link> page and connect with Stripe shortly after.
                     </Text>
                 </div>
             </Content>
@@ -123,7 +123,7 @@ export const Host: FC = () => {
                     <Title level={3} className="host__form-title">
                         Please wait!
                     </Title>
-                    <Text type="secondary">We're creating your listing now.</Text>
+                    <Text type="secondary">We&apos;re creating your listing now.</Text>
                 </div>
             </Content>
         );
@@ -138,9 +138,9 @@ export const Host: FC = () => {
             <Form layout="vertical" onFinish={handleHostListing} onFinishFailed={handleValidationError}>
                 <div className="host__form-header">
                     <Title level={3} className="host__form-title">
-                        Hi! Let's get started listing your place.
+                        Hi! Let&apos;s get started listing your place.
                     </Title>
-                    <Text type="secondary">In this form, we'll collect some basic and additional information about your listing.</Text>
+                    <Text type="secondary">In this form, we&apos;ll collect some basic and additional information about your listing.</Text>
                 </div>
 
                 <Item name="type" rules={[{ required: true, message: 'Please select a home type!' }]} label="Home Type">

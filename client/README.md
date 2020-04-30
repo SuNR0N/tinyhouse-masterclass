@@ -1,5 +1,18 @@
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
+## Prerequisites
+
+1. Create a [Stripe account](https://stripe.com/gb) that you'll use solely for the TinyHouse platform
+2. Create a `.env` file as follows:
+
+```sh
+# Indentifies the client application which can be found in the Integration section of Settings/Connect Settings on the Stripe Dashboard
+REACT_APP_STRIPE_CLIENT_ID=ca_*****
+
+# Indentifies the account connected to Stripe which can be found in the Standard keys section of Developers/API keys
+REACT_APP_STRIPE_PUBLISHABLE_KEY=pk_test_*****
+```
+
 ## Available Scripts
 
 In the project directory, you can run:
@@ -49,6 +62,15 @@ Generates the _TypeScript_ interfaces using the available JSON schema definition
 
 Generates the _GraphQL_ schema of the server project and based on that the _TypeScript_ interfaces that the client code should use based on its currently implemented queries.
 
+### `npm run lint`
+
+Runs the linter against the source code.
+
+### `npm run lint:fix`
+
+Runs the linter against the source code with an attempt to resolve any problems
+which can be automatically fixed.
+
 ## Learn More
 
 -   React - https://reactjs.org/
@@ -64,28 +86,5 @@ Generates the _GraphQL_ schema of the server project and based on that the _Type
 
 -   [ ] -   Enhance styles (units, etc.)
 -   [ ] -   Add unit tests
--   [ ] -   Add linting and prettier
 -   [ ] -   Generate JS classnames from SCSS
 -   [ ] -   Create constants for texts
--   [ ] -   Update README
-
-## Additional features to implement
-
-### Rate a listing
-
--   Users should be able to rate a listing with stars between 1-5 that they booked at least once
--   Users cannot rate a listing more than once
--   Average rating should be displayed on the listing card
-
-### Delete listing
-
--   Users should be able to delete their own listing
--   A deleted listing should not be returned by a search
--   When navigating to the view page of a given listing which had been deleted already then a message should be displayed
--   Users should not be able to book a deleted listing
-
-### Favorite listings
-
--   Users should be able to favorite/unfavorite listings
--   Favorite listings should appear on the user's profile page in a paginated fashion
--   Users should not be able to see each others' favorites

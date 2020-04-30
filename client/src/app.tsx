@@ -83,7 +83,7 @@ export const App: FC = () => {
                             )}
                         />
                         <Route exact path={AppRoute.LISTINGS} component={Listings} />
-                        <Route exact path={AppRoute.LOGIN} component={Login} />} />
+                        <Route exact path={AppRoute.LOGIN} component={Login} />
                         <Route exact path={AppRoute.STRIPE} component={Stripe} />
                         <Route exact path={AppRoute.USER} component={User} />
                         <Route component={NotFound} />

@@ -100,7 +100,7 @@ export const Login: FC = () => {
                     <span className="login-card__google-button-text">Sign in with Google</span>
                 </button>
                 <Text type="secondary">
-                    Note: By signing in, you'll be redirected to the Google consent form to sign in with your Google account.
+                    Note: By signing in, you&apos;ll be redirected to the Google consent form to sign in with your Google account.
                 </Text>
             </Card>
         </Content>

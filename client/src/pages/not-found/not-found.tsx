@@ -18,7 +18,7 @@ export const NotFound: FC = () => {
                 description={
                     <>
                         <Text className="not-found__description-title">Uh oh! Something went wrong :(</Text>
-                        <Text className="not-found__description-subtitle">The page you're looking for can't be found</Text>
+                        <Text className="not-found__description-subtitle">The page you&apos;re looking for can&apos;t be found</Text>
                     </>
                 }
             />

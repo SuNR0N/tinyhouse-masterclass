@@ -10,7 +10,7 @@ interface Props {
     total: number;
 }
 
-export const ListingsPagination: FC<Props> = forwardRef(({ page, setPage, limit, total }, _ref) => (
+export const ListingsPagination: FC<Props> = forwardRef(({ page, setPage, limit, total }) => (
     <Pagination
         className="listings-pagination"
         current={page}
@@ -21,3 +21,5 @@ export const ListingsPagination: FC<Props> = forwardRef(({ page, setPage, limit,
         onChange={(page) => setPage(page)}
     />
 ));
+
+ListingsPagination.displayName = 'ListingsPagination';

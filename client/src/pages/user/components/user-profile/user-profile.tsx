@@ -58,7 +58,7 @@ export const UserProfile: FC<Props> = ({ handleUserRefetch, user, viewerIsUser }
                 Disconnect Stripe
             </Button>
             <Paragraph type="secondary">
-                By disconnecting, you won't be able to receive <Text strong>any further payments</Text>. This will prevent users from
+                By disconnecting, you won&apos;t be able to receive <Text strong>any further payments</Text>. This will prevent users from
                 booking listings that you might have already created.
             </Paragraph>
         </>

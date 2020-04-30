@@ -63,3 +63,5 @@ export const AppHeader: FC = forwardRef<{}, PropsWithChildren<{}>>(() => {
         </Header>
     );
 });
+
+AppHeader.displayName = 'AppHeader';
