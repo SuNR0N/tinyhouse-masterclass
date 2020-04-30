@@ -1,4 +1,4 @@
-import React, { FC, useEffect, useRef, useState } from 'react';
+import React, { FC, useEffect, useState } from 'react';
 import { Link, useParams } from 'react-router-dom';
 import { useQuery } from '@apollo/react-hooks';
 import { Affix, Layout, List, Typography } from 'antd';
@@ -10,7 +10,7 @@ import { LISTINGS } from '../../core/graphql/queries';
 import { AppRoute } from '../../core/config/app-route';
 import { ListingsFilters, ListingsPagination, ListingsSkeleton } from './components';
 import { ErrorBanner } from '../../components/error-banner';
-import { useScrollToTop } from '../../core/hooks/use-scroll-to-top';
+import { usePrevious, useScrollToTop } from '../../core/hooks';
 import './listings.scss';
 
 const { Content } = Layout;
@@ -27,17 +27,16 @@ export const Listings: FC = () => {
 
     const { location } = useParams<MatchParams>();
 
-    const locationRef = useRef(location);
+    const previousLocation = usePrevious(location);
     const [filter, setFilter] = useState(ListingsFilter.PRICE_LOW_TO_HIGH);
     const [page, setPage] = useState(1);
     const { data, loading, error } = useQuery<ListingsData, ListingsVariables>(LISTINGS, {
-        skip: locationRef.current !== location && page !== 1,
+        skip: previousLocation !== location && page !== 1,
         variables: { filter, limit: PAGE_LIMIT, location, page },
     });
 
     useEffect(() => {
         setPage(1);
-        locationRef.current = location;
     }, [location]);
 
     if (loading || error) {

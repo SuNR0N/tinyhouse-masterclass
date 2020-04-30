@@ -10,7 +10,7 @@ import { HostListing as HostListingData, HostListingVariables } from '../../core
 import { Viewer } from '../../core/models/viewer';
 import { AppRoute } from '../../core/config/app-route';
 import { ListingType } from '../../core/graphql/globalTypes';
-import { displayErrorMessage, displaySuccessNotification, resolveRoute } from '../../core/utils';
+import { displayErrorMessage, displaySuccessNotification, getBase64Value, resolveRoute } from '../../core/utils';
 import { useScrollToTop } from '../../core/hooks/use-scroll-to-top';
 import './host.scss';
 
@@ -34,14 +34,6 @@ interface FormValues {
     title: string;
     type: ListingType;
 }
-
-const getBase64Value = (img: File | Blob, callback: (imageBase64Value: string) => void) => {
-    const reader = new FileReader();
-    reader.readAsDataURL(img);
-    reader.onload = () => {
-        callback(reader.result as string);
-    };
-};
 
 export const Host: FC<Props> = ({ viewer }) => {
     useScrollToTop();
@@ -228,6 +220,7 @@ export const Host: FC<Props> = ({ viewer }) => {
                             name="image"
                             listType="picture-card"
                             showUploadList={false}
+                            // TODO: Investigate
                             action="https://www.mocky.io/v2/5cc8019d300000980a055e76"
                             beforeUpload={handleBeforeUpload}
                             onChange={handleImageUpload}

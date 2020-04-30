@@ -3,7 +3,7 @@ import { Button, Card, DatePicker, Divider, Tooltip, Typography } from 'antd';
 import moment, { Moment } from 'moment';
 
 import { Listing as ListingData } from '../../../../core/graphql/queries/__generated__/Listing';
-import { formatPrice, displayErrorMessage } from '../../../../core/utils';
+import { displayErrorMessage, formatPrice, isBooked } from '../../../../core/utils';
 import { BookingsIndex, Viewer } from '../../../../core/models';
 import './listing-create-booking.scss';
 
@@ -37,24 +37,12 @@ export const ListingCreateBooking: FC<Props> = ({
 }) => {
     const bookingsIndexJSON: BookingsIndex = JSON.parse(bookingsIndex);
 
-    const dateIsBooked = (currentDate: Moment) => {
-        const year = moment(currentDate).year();
-        const month = moment(currentDate).month();
-        const day = moment(currentDate).date();
-
-        if (bookingsIndexJSON[year] && bookingsIndexJSON[year][month]) {
-            return Boolean(bookingsIndexJSON[year][month][day]);
-        } else {
-            return false;
-        }
-    };
-
     const disabledDate = (currentDate?: Moment) => {
         if (currentDate) {
             const dateIsBeforeEndOfDay = currentDate.isBefore(moment().endOf('day'));
             const dateIsMoreThanMaxDaysAhead = moment(currentDate).isAfter(moment().endOf('day').add(MAX_DAYS_AHEAD, 'days'));
 
-            return dateIsBeforeEndOfDay || dateIsMoreThanMaxDaysAhead || dateIsBooked(currentDate);
+            return dateIsBeforeEndOfDay || dateIsMoreThanMaxDaysAhead || isBooked(currentDate, bookingsIndexJSON);
         } else {
             return false;
         }
