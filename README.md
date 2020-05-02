@@ -14,6 +14,47 @@ A [TypeScript](https://www.typescriptlang.org) based [React](https://reactjs.org
 
 For more information, see the [README](client/README.md) file of the client.
 
+## Docker
+
+```sh
+# Create docker image
+docker build -t tinyhouse .
+
+# Run docker image locally
+docker run -d -p 3000:3000 --env-file server/.env tinyhouse
+```
+
+## Deployment
+
+Deployed application: https://tinyhouse-app-demo.herokuapp.com
+
+### Steps
+
+```sh
+# Install Heroku CLI
+brew tap heroku/brew && brew install heroku
+
+# Login to Heroku
+heroku login
+
+# Sign into Container Registry
+heroku container:login
+
+# Push the docker image into the container registry
+heroku container:push web -a [app_name]
+
+# Deploy the changes
+heroku container:release web -a [app_name]
+
+# Configure environment variables on the application page at Heroku based on your local .env.production file
+
+# Set the PUBLIC_URL accordingly based on the generated application hostname
+
+# Change redirect URI for Google OAuth at Google Developers Console or use separate credentials for PROD when setting up the environment variables
+
+# Change redirect URI for Stripe OAuth at Stripe Dashboard or use separate credentials for PROD when setting up the environment variables
+```
+
 ## Additional features to implement
 
 ### Rate a listing

@@ -84,7 +84,7 @@ STRIPE_CLIENT_ID=ca_*****
 # Client secret for Stripe OAuth 2.0 which can be found in the Integration section of Settings/Connect Settings on the Stripe Dashboard
 STRIPE_SECRET_KEY=sk_test_*****
 
-# The port on which the application starts (defaults to 3000)
+# The port on which the application starts (defaults to 9000)
 # PORT=3001
 ```
 
@@ -137,3 +137,4 @@ Runs unit test suites with coverage report for the source code.
 
 -   [ ] -   Add unit tests
 -   [ ] -   Add dockerized MongoDB
+-   [ ] -   Implement logging

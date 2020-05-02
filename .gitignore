@@ -12,6 +12,7 @@ Quiz.md
 
 # Environment
 .env
+.env.*
 
 # Logs
 npm-debug.log*
